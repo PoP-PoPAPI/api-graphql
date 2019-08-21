@@ -19,6 +19,7 @@
     "prefer-stable": true,
     "require": {
         "php" : "~7.1",
+        "getpop/api-mirrorquery": "^1.0@dev",
         "getpop/migrate-api-graphql": "^1.0@dev"
     },
     "require-dev": {
