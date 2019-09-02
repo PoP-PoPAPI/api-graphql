@@ -9,8 +9,9 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 -->
 
-Output the PoP API using the GraphQL format
+It adds compatibility with GraphQL to the [PoP API](https://github.com/getpop/api): Execute queries against a single endpoint (`/api/graphql/?fields=...`), and the response mirrors the structure of the query.
 
+While the query input is different than GraphQL (added through URL param `fields`), the output is exactly the same.
 
 ## Install
 
