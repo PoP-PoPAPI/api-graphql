@@ -54,12 +54,17 @@ RewriteRule ^api/graphql/?$ /?scheme=api&datastructure=graphql [L,P,QSA]
 </IfModule>
 ```
 
-<!--
 ## Usage
 
-``` php
-```
--->
+Query the single endpoint `/api/graphql/` through URL parameter `fields`:
+
+- [/api/graphql/?fields=posts.id|title|author.id|name](https://nextapi.getpop.org/api/graphql/?fields=posts.id|title|author.id|name)
+
+### Visualize the schema
+
+To visualize all available fields, use query field `__schema`: 
+
+- [/api/graphql/?fields=__schema](https://nextapi.getpop.org/api/graphql/?fields=__schema)
 
 ## Change log
 
