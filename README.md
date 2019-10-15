@@ -9,7 +9,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 -->
 
-It adds compatibility with GraphQL to the [PoP API](https://github.com/getpop/api): Execute queries against a single endpoint (`/api/graphql/?fields=...`), and the response mirrors the structure of the query.
+It adds compatibility with GraphQL to the [PoP API](https://github.com/getpop/api): Execute queries against a single endpoint (`/api/graphql/?query=...`), and the response mirrors the structure of the query.
 
 While the query input is different than GraphQL (added through URL param `fields`), the output is exactly the same.
 
@@ -58,13 +58,13 @@ RewriteRule ^api/graphql/?$ /?scheme=api&datastructure=graphql [L,P,QSA]
 
 Query the single endpoint `/api/graphql/` through URL parameter `fields`:
 
-- [/api/graphql/?fields=posts.id|title|author.id|name](https://nextapi.getpop.org/api/graphql/?fields=posts.id|title|author.id|name)
+- [/api/graphql/?query=posts.id|title|author.id|name](https://nextapi.getpop.org/api/graphql/?query=posts.id|title|author.id|name)
 
 ### Visualize the schema
 
 To visualize all available fields, use query field `__schema`: 
 
-- [/api/graphql/?fields=__schema](https://nextapi.getpop.org/api/graphql/?fields=__schema)
+- [/api/graphql/?query=__schema](https://nextapi.getpop.org/api/graphql/?query=__schema)
 
 ## Change log
 
