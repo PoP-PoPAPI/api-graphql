@@ -11,7 +11,7 @@
 
 It adds compatibility with GraphQL to the [PoP API](https://github.com/getpop/api): Execute queries against a single endpoint (`/api/graphql/?query=...`), and the response mirrors the structure of the query.
 
-While the query input is different than GraphQL (added through URL param `fields`), the output is exactly the same.
+While the query input is different than GraphQL (added through URL param `query`), the output is exactly the same.
 
 ## Install
 
@@ -56,7 +56,7 @@ RewriteRule ^api/graphql/?$ /?scheme=api&datastructure=graphql [L,P,QSA]
 
 ## Usage
 
-Query the single endpoint `/api/graphql/` through URL parameter `fields`:
+Query the single endpoint `/api/graphql/` through URL parameter `query`:
 
 - [/api/graphql/?query=posts.id|title|author.id|name](https://nextapi.getpop.org/api/graphql/?query=posts.id|title|author.id|name)
 
