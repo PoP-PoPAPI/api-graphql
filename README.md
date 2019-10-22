@@ -118,6 +118,10 @@ For instance, we can query data for a [single post](https://nextapi.getpop.org/2
 - [{single-post-url}/?query=id|title|author.id|name](https://nextapi.getpop.org/2013/01/11/markup-html-tags-and-formatting/api/graphql/?query=id|title|author.id|name)
 - [{post-list-url}/?query=id|title|author.id|name](https://nextapi.getpop.org/posts/api/graphql/?query=id|title|author.id|name)
 
+## Query examples
+
+Please refer to the [Field Query](https://github.com/getpop/field-query) documentation to see plenty of query examples.
+
 ## More information
 
 Please refer to package [API](https://github.com/getpop/api), on which the GraphQL API is based, and which contains plenty of extra documentation.
