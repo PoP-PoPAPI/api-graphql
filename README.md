@@ -126,6 +126,17 @@ Please refer to the [Field Query](https://github.com/getpop/field-query) documen
 
 Please refer to package [API](https://github.com/getpop/api), on which the GraphQL API is based, and which contains plenty of extra documentation.
 
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
