@@ -2,6 +2,7 @@
 namespace PoP\GraphQLAPI;
 
 use PoP\Root\Component\AbstractComponent;
+use PoP\Root\Component\CanDisableComponentTrait;
 use PoP\API\Component as APIComponent;
 
 /**
@@ -10,6 +11,7 @@ use PoP\API\Component as APIComponent;
 class Component extends AbstractComponent
 {
     // const VERSION = '0.1.0';
+    use CanDisableComponentTrait;
 
     /**
      * Initialize services
@@ -21,17 +23,8 @@ class Component extends AbstractComponent
         }
     }
 
-    protected static function initEnabled()
+    protected static function resolveEnabled()
     {
-        self::$enabled = APIComponent::isEnabled() && !Environment::disableGraphQLAPI();
-    }
-
-    public static function isEnabled()
-    {
-        // This is needed for if asking if this component is enabled before it has been initialized
-        if (is_null(self::$enabled)) {
-            self::initEnabled();
-        }
-        return self::$enabled;
+        return APIComponent::isEnabled() && !Environment::disableGraphQLAPI();
     }
 }
