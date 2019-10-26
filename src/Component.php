@@ -5,6 +5,7 @@ use PoP\API\Component as APIComponent;
 use PoP\Root\Component\AbstractComponent;
 use PoP\GraphQLAPI\Config\ServiceConfiguration;
 use PoP\Root\Component\CanDisableComponentTrait;
+use PoP\Root\Component\YAMLServicesTrait;
 
 /**
  * Initialize component
@@ -12,7 +13,7 @@ use PoP\Root\Component\CanDisableComponentTrait;
 class Component extends AbstractComponent
 {
     // const VERSION = '0.1.0';
-    use CanDisableComponentTrait;
+    use YAMLServicesTrait, CanDisableComponentTrait;
 
     /**
      * Initialize services
@@ -21,6 +22,7 @@ class Component extends AbstractComponent
     {
         if (self::isEnabled()) {
             parent::init();
+            self::initYAMLServices(dirname(__DIR__));
             ServiceConfiguration::init();
         }
     }
