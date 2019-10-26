@@ -1,9 +1,10 @@
 <?php
 namespace PoP\GraphQLAPI;
 
-use PoP\Root\Component\AbstractComponent;
-use PoP\Root\Component\CanDisableComponentTrait;
 use PoP\API\Component as APIComponent;
+use PoP\Root\Component\AbstractComponent;
+use PoP\GraphQLAPI\Config\ServiceConfiguration;
+use PoP\Root\Component\CanDisableComponentTrait;
 
 /**
  * Initialize component
@@ -20,6 +21,7 @@ class Component extends AbstractComponent
     {
         if (self::isEnabled()) {
             parent::init();
+            ServiceConfiguration::init();
         }
     }
 
