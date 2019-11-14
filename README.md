@@ -105,7 +105,7 @@ _**New feature not yet available:**_<br/>
 <a href="https://nextapi.getpop.org/api/graphql/?query=posts.id|title|excerpt(length:30)">/?query=posts.id|title|excerpt(length:30)</a>
 
 _**New feature available under "experimental" branch:**_<br/>
-<a href="https://nextapi.getpop.org/api/graphql/?query=posts.id|title|excerpt(branch:experimental,length:30)">[/?query=posts.id|title|excerpt(length:30,branch:experimental)</a>
+<a href="https://nextapi.getpop.org/api/graphql/?query=posts.id|title|excerpt(branch:experimental,length:30)">/?query=posts.id|title|excerpt(length:30,branch:experimental)</a>
 
 ## Query data on resources, the REST way
 
