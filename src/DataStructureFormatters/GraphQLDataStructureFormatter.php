@@ -79,20 +79,18 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
     protected function reformatDBEntries($entries)
     {
         $ret = [];
-        foreach ($entries as $dbKey => $id_field_messages) {
-            foreach ($id_field_messages as $id => $field_messages) {
-                foreach ($field_messages as $field => $messages) {
-                    foreach ($messages as $message) {
-                        $ret[] = [
-                            'message' => $message,
-                            'extensions' => [
-                                'type' => 'dataObject',
-                                'entityDBKey' => $dbKey,
-                                'id' => $id,
-                                'fieldOrDirective' => $field,
-                            ],
-                        ];
-                    }
+        foreach ($entries as $dbKey => $id_items) {
+            foreach ($id_items as $id => $items) {
+                foreach ($items as $item) {
+                    $ret[] = [
+                        'message' => $item['message'],
+                        'extensions' => [
+                            'type' => 'dataObject',
+                            'entityDBKey' => $dbKey,
+                            'id' => $id,
+                            'path' => $item['path'],
+                        ],
+                    ];
                 }
             }
         }
@@ -102,18 +100,16 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
     protected function reformatSchemaEntries($entries)
     {
         $ret = [];
-        foreach ($entries as $dbKey => $field_messages) {
-            foreach ($field_messages as $field => $messages) {
-                foreach ($messages as $message) {
-                    $ret[] = [
-                        'message' => $message,
-                        'extensions' => [
-                            'type' => 'schema',
-                            'entityDBKey' => $dbKey,
-                            'fieldOrDirective' => $field,
-                        ],
-                    ];
-                }
+        foreach ($entries as $dbKey => $items) {
+            foreach ($items as $item) {
+                $ret[] = [
+                    'message' => $item['message'],
+                    'extensions' => [
+                        'type' => 'schema',
+                        'entityDBKey' => $dbKey,
+                        'path' => $item['path'],
+                    ],
+                ];
             }
         }
         return $ret;
