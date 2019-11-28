@@ -9,7 +9,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 -->
 
-“Schemaless” implementation of GraphQL, using components. It makes a PoP application become a GraphQL server.
+Implementation of GraphQL based on the [PoP API](https://github.com/getpop/api)
 
 ## Install
 
