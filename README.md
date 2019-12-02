@@ -13,6 +13,12 @@ Convert your application into a GraphQL server. This implementation is a package
 
 ## Install
 
+### Installing a fully-working API:
+
+Follow the instructions under [Bootstrap a PoP API for WordPress](https://github.com/leoloso/PoP-API-WP) (currently, the API is available for WordPress only).
+
+### Installing this library: 
+
 Via Composer
 
 ``` bash
