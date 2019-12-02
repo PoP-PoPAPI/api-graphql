@@ -560,7 +560,7 @@ For instance, the following query will give an error message, since you, dear re
 
 <a href="https://newapi.getpop.org/api/graphql/?query=me.name" target="_blank">View query results</a>
 
-### Linear time complexity to resolve queries (`O(n)`, where `n` is #nodes)
+### Linear time complexity to resolve queries (`O(n)`, where `n` is #types)
 
 The “N+1 problem” is completely avoided already by architectural design. It doesn't matter how many levels deep the graph is, it will resolve fast.
 
