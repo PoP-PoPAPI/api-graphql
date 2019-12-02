@@ -57,11 +57,11 @@ RewriteRule ^api/graphql/?$ /?scheme=api&datastructure=graphql [L,P,QSA]
 ### Syntax
 
 The query syntax used is described in package [Field Query](https://github.com/getpop/field-query).
--->
+
 ## Implementation based on components, not on schemas
 
 Whereas a standard implementation of [GraphQL](https://graphql.org) is based on the concept of [schemas and types](https://graphql.org/learn/schema/) implemented through the SDL (Schema Definition Language), GraphQL API for PoP is, instead, [implemented using components](https://www.smashingmagazine.com/2019/01/introducing-component-based-api/).
-<!--
+
 This architectural decision has several advantages over a schema-based implementation, explained in the sections below.
 
 ## Automatically-generated schema
