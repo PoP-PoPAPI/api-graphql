@@ -189,7 +189,7 @@ query=
     >
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:5)@posts.id%7Cdate(format:d/m/Y)%7Ctitle<skip(if:false)>" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:5)@posts.id%7Cdate(format:d/m/Y)%7Ctitle<skip(if:false)>">View query results</a>
 
 The syntax has the following elements:
 
@@ -225,7 +225,7 @@ props=
     url
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?order=title%7CASC&amp;props=url%7Cauthor.name%7Curl&amp;query=posts(ids:%5B1,1499,1178%5D,order:%24order)@posts.id%7Cdate(format:d/m/Y)%7Ctitle<skip(if:false)>%7C--props" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?order=title%7CASC&amp;props=url%7Cauthor.name%7Curl&amp;query=posts(ids:%5B1,1499,1178%5D,order:%24order)@posts.id%7Cdate(format:d/m/Y)%7Ctitle<skip(if:false)>%7C--props">View query results</a>
 
 ### Dynamic schema
 
@@ -237,7 +237,7 @@ To visualize it, we use the standard introspection field `__schema`:
 /?query=__schema
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=__schema" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=__schema">View query results</a>
 
 ### Skip argument names
 
@@ -271,9 +271,9 @@ query=
     >
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?postId=1&amp;query=post(%24postId).date(d/m/Y)%7Ctitle%3Cskip(false)%3E" target="_blank">View query results #1</a>
+<a href="https://newapi.getpop.org/api/graphql/?postId=1&amp;query=post(%24postId).date(d/m/Y)%7Ctitle%3Cskip(false)%3E">View query results #1</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?postId=1&amp;query=post(id:%24postId).date(format:d/m/Y)%7Ctitle<skip(if:false)>" target="_blank">View query results #2</a>
+<a href="https://newapi.getpop.org/api/graphql/?postId=1&amp;query=post(id:%24postId).date(format:d/m/Y)%7Ctitle<skip(if:false)>">View query results #2</a>
 
 ### Operators and Helpers
 
@@ -290,21 +290,21 @@ All operators and functions provided by the language (PHP) can be made available
 8. /?query=context
 ```
 
-<a href="https://newapi.getpop.org/api/graphql?query=not(true)" target="_blank">View query results #1</a>
+<a href="https://newapi.getpop.org/api/graphql?query=not(true)">View query results #1</a>
 
-<a href="https://newapi.getpop.org/api/graphql?query=or(%5B1,0%5D)" target="_blank">View query results #2</a>
+<a href="https://newapi.getpop.org/api/graphql?query=or(%5B1,0%5D)">View query results #2</a>
 
-<a href="https://newapi.getpop.org/api/graphql?query=and(%5B1,0%5D)" target="_blank">View query results #3</a>
+<a href="https://newapi.getpop.org/api/graphql?query=and(%5B1,0%5D)">View query results #3</a>
 
-<a href="https://newapi.getpop.org/api/graphql?query=if(true,Show%20this%20text,Hide%20this%20text)" target="_blank">View query results #4</a>
+<a href="https://newapi.getpop.org/api/graphql?query=if(true,Show%20this%20text,Hide%20this%20text)">View query results #4</a>
 
-<a href="https://newapi.getpop.org/api/graphql?query=equals(first%20text,%20second%20text)" target="_blank">View query results #5</a>
+<a href="https://newapi.getpop.org/api/graphql?query=equals(first%20text,%20second%20text)">View query results #5</a>
 
-<a href="https://newapi.getpop.org/api/graphql?query=isNull(),isNull(something)" target="_blank">View query results #6</a>
+<a href="https://newapi.getpop.org/api/graphql?query=isNull(),isNull(something)">View query results #6</a>
 
-<a href="https://newapi.getpop.org/api/graphql?query=sprintf(%s%20API%20is%20%s,%20%5BPoP,%20cool%5D)" target="_blank">View query results #7</a>
+<a href="https://newapi.getpop.org/api/graphql?query=sprintf(%s%20API%20is%20%s,%20%5BPoP,%20cool%5D)">View query results #7</a>
 
-<a href="https://newapi.getpop.org/api/graphql?query=context" target="_blank">View query results #8</a>
+<a href="https://newapi.getpop.org/api/graphql?query=context">View query results #8</a>
 
 ### Nested fields
 
@@ -327,7 +327,7 @@ In the example below, field `post` is injected, in its field argument `id`, the 
     date
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=post(id:arrayItem(posts(limit:1,order:date%7CDESC),0))@latestPost.id%7Ctitle%7Cdate" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=post(id:arrayItem(posts(limit:1,order:date%7CDESC),0))@latestPost.id%7Ctitle%7Cdate">View query results</a>
 
 To tell if a field argument must be considered a field or a string, if it contains `()` it is a field, otherwise it is a string (eg: `posts()` is a field, and `posts` is a string)
 
@@ -356,7 +356,7 @@ query=
     )@postDesc
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?format=Y-m-d&amp;query=posts.if(has-comments(),sprintf(%22This%20post%20has%20%s%20comment(s)%20and%20title%20%27%s%27%22,%5Bcomments-count(),title()%5D),sprintf(%22This%20post%20was%20created%20on%20%s%20and%20has%20no%20comments%22,%5Bdate(format:if(not(empty(%24format)),%24format,d/m/Y))%5D))@postDesc" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?format=Y-m-d&amp;query=posts.if(has-comments(),sprintf(%22This%20post%20has%20%s%20comment(s)%20and%20title%20%27%s%27%22,%5Bcomments-count(),title()%5D),sprintf(%22This%20post%20was%20created%20on%20%s%20and%20has%20no%20comments%22,%5Bdate(format:if(not(empty(%24format)),%24format,d/m/Y))%5D))@postDesc">View query results</a>
 
 This solves one issue with GraphQL: That it transfers the REST way of creating multiple endpoints to satisfy different needs (such as `/posts-1st-format/` and `/posts-2nd-format/`) into the data model. For instance, exploring the [live demo](https://graphiql-test.netlify.com/) to demonstrate [GraphiQL](https://github.com/graphql/graphiql) with the DevTools' network tab, we see that the schema contains fields `fileName_not`, `fileName_in`, `fileName_not_in`, etc:
 
@@ -378,7 +378,7 @@ The example below implements the standard GraphQL `skip` directive, however it i
       src
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7Cfeaturedimage<skip(if:isNull(featuredimage()))>.src" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7Cfeaturedimage<skip(if:isNull(featuredimage()))>.src">View query results</a>
 
 ### Skip output if null
 
@@ -392,7 +392,7 @@ Exactly the same result above (`<skip(if(isNull(...)))>`) can be accomplished us
       src
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7Cfeaturedimage?.src" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7Cfeaturedimage?.src">View query results</a>
 
 ### Nested directives
 
@@ -418,7 +418,7 @@ In the example below, directive `<forEach>` iterates all the elements from an ar
   >
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=echo(%5B%5Bbanana,apple%5D,%5Bstrawberry,grape,melon%5D%5D)@fruitJoin%3CforEach%3CapplyFunction(function:arrayJoin,addArguments:%5Barray:%value%,separator:%22---%22%5D)%3E%3E" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=echo(%5B%5Bbanana,apple%5D,%5Bstrawberry,grape,melon%5D%5D)@fruitJoin%3CforEach%3CapplyFunction(function:arrayJoin,addArguments:%5Barray:%value%,separator:%22---%22%5D)%3E%3E">View query results</a>
 
 ### Directive expressions
 
@@ -456,7 +456,7 @@ In the example below, an array contains strings to translate and the language to
   >
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=echo(%5B%5Btext:%20Hello%20my%20friends,translateTo:%20fr%5D,%5Btext:%20How%20do%20you%20like%20this%20software%20so%20far?,translateTo:%20es%5D,%5D)@translated%3CforEach%3CadvancePointerInArray(path:%20text,appendExpressions:%20%5BtoLang:extract(%value%,translateTo)%5D)%3Ctranslate(from:%20en,to:%20%toLang%,oneLanguagePerField:%20true,override:%20true)%3E%3E%3E" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=echo(%5B%5Btext:%20Hello%20my%20friends,translateTo:%20fr%5D,%5Btext:%20How%20do%20you%20like%20this%20software%20so%20far?,translateTo:%20es%5D,%5D)@translated%3CforEach%3CadvancePointerInArray(path:%20text,appendExpressions:%20%5BtoLang:extract(%value%,translateTo)%5D)%3Ctranslate(from:%20en,to:%20%toLang%,oneLanguagePerField:%20true,override:%20true)%3E%3E%3E">View query results</a>
 
 ### HTTP Caching
 
@@ -500,17 +500,17 @@ Examples:
     title<cacheControl(maxAge:0)>
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=echo(Hello+world!)" target="_blank">View query results #1</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=echo(Hello+world!)">View query results #1</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=echo(Hello+world!)%7Cposts.title" target="_blank">View query results #2</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=echo(Hello+world!)%7Cposts.title">View query results #2</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=echo(posts())" target="_blank">View query results #3</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=echo(posts())">View query results #3</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=time" target="_blank">View query results #4</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=time">View query results #4</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=time%7Cecho(Hello+world!)%7Cposts.title" target="_blank">View query results #5</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=time%7Cecho(Hello+world!)%7Cposts.title">View query results #5</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=echo(Hello+world!)%7Cposts.title<cacheControl(maxAge:0)>" target="_blank">View query results #6</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=echo(Hello+world!)%7Cposts.title<cacheControl(maxAge:0)>">View query results #6</a>
 
 ### Many resolvers per field
 
@@ -538,11 +538,11 @@ In the example below, field `excerpt` does not normally support field arg `lengt
       branch:experimental
     )
 ```
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.excerpt" target="_blank">View query results #1</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.excerpt">View query results #1</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.excerpt(length:30)" target="_blank">View query results #2</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.excerpt(length:30)">View query results #2</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.excerpt(length:30,branch:experimental)" target="_blank">View query results #3</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.excerpt(length:30,branch:experimental)">View query results #3</a>
 
 Advantages:
 
@@ -564,7 +564,7 @@ For instance, the following query will give an error message, since you, dear re
     name
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=me.name" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=me.name">View query results</a>
 
 ### Linear time complexity to resolve queries (`O(n)`, where `n` is #types)
 
@@ -590,7 +590,7 @@ Example of a deeply-nested query:
                  slug
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.author.posts.comments.author.id%7Cname%7Cposts.id%7Ctitle%7Curl%7Ctags.id%7Cslug" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.author.posts.comments.author.id%7Cname%7Cposts.id%7Ctitle%7Curl%7Ctags.id%7Cslug">View query results</a>
 
 ### Efficient directive calls
 
@@ -632,9 +632,9 @@ props=
   excerpt
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:5).--props%7C--props@spanish<translate(en,es)>&amp;props=title%7Cexcerpt" target="_blank">View query results #1</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:5).--props%7C--props@spanish<translate(en,es)>&amp;props=title%7Cexcerpt">View query results #1</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:5).--props%7C--props@spanish%3Ctranslate(en,es)%3E%7C--props@french%3Ctranslate(en,fr)%3E%7C--props@german%3Ctranslate(en,de)%3E&amp;props=title%7Cexcerpt" target="_blank">View query results #2</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:5).--props%7C--props@spanish%3Ctranslate(en,es)%3E%7C--props@french%3Ctranslate(en,fr)%3E%7C--props@german%3Ctranslate(en,de)%3E&amp;props=title%7Cexcerpt">View query results #2</a>
 
 ### Interact with APIs from the back-end
 
@@ -668,11 +668,11 @@ Example calling the Google Translate API from the back-end, as coded within dire
     >
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:5).title%7Ctitle@spanish%3Ctranslate(en,es)%3E" target="_blank">View query results #1</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:5).title%7Ctitle@spanish%3Ctranslate(en,es)%3E">View query results #1</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:5).title%7Ctitle@translateAndBack%3Ctranslate(en,es),translate(es,en)%3E" target="_blank">View query results #2</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:5).title%7Ctitle@translateAndBack%3Ctranslate(en,es),translate(es,en)%3E">View query results #2</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:5).title%7Ctitle@spanish%3Ctranslate(en,es,provider:azure)%3E" target="_blank">View query results #3</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:5).title%7Ctitle@spanish%3Ctranslate(en,es,provider:azure)%3E">View query results #3</a>
 
 ### Interact with APIs from the client-side
 
@@ -704,7 +704,7 @@ echo([
 ])@cryptoPrices
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=echo(%5Busd:%5Bbitcoin:extract(getJSON(%22https://api.cryptonator.com/api/ticker/btc-usd%22),ticker.price),ethereum:extract(getJSON(%22https://api.cryptonator.com/api/ticker/eth-usd%22),ticker.price)%5D,euro:%5Bbitcoin:extract(getJSON(%22https://api.cryptonator.com/api/ticker/btc-eur%22),ticker.price),ethereum:extract(getJSON(%22https://api.cryptonator.com/api/ticker/eth-eur%22),ticker.price)%5D%5D)@cryptoPrices" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=echo(%5Busd:%5Bbitcoin:extract(getJSON(%22https://api.cryptonator.com/api/ticker/btc-usd%22),ticker.price),ethereum:extract(getJSON(%22https://api.cryptonator.com/api/ticker/eth-usd%22),ticker.price)%5D,euro:%5Bbitcoin:extract(getJSON(%22https://api.cryptonator.com/api/ticker/btc-eur%22),ticker.price),ethereum:extract(getJSON(%22https://api.cryptonator.com/api/ticker/eth-eur%22),ticker.price)%5D%5D)@cryptoPrices">View query results</a>
 
 ### Interact with APIs, performing all required logic in a single query
 
@@ -738,11 +738,11 @@ The last query from the examples below accesses, extracts and manipulates data f
   )@userNameEmailList
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=getJSON(%22https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions%22)@userEmailLangList" target="_blank">View query results #1</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=getJSON(%22https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions%22)@userEmailLangList">View query results #1</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=extract(getJSON(%22https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions%22),email)@userEmailList" target="_blank">View query results #2</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=extract(getJSON(%22https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions%22),email)@userEmailList">View query results #2</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=getJSON(sprintf(%22https://newapi.getpop.org/users/api/rest/?query=name%7Cemail%26emails%5B%5D=%s%22,%5BarrayJoin(extract(getJSON(%22https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions%22),email),%22%26emails%5B%5D=%22)%5D))@userEmailNameList" target="_blank">View query results #3</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=getJSON(sprintf(%22https://newapi.getpop.org/users/api/rest/?query=name%7Cemail%26emails%5B%5D=%s%22,%5BarrayJoin(extract(getJSON(%22https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions%22),email),%22%26emails%5B%5D=%22)%5D))@userEmailNameList">View query results #3</a>
 
 ### Create your content or service mesh
 
@@ -778,7 +778,7 @@ The example below defines and accesses a list of all services required by the ap
   ])@contentMesh
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=echo(%5Bgithub:%22https://api.github.com/repos/leoloso/PoP%22,weather:%22https://api.weather.gov/zones/forecast/MOZ028/forecast%22,photos:%22https://picsum.photos/v2/list%22%5D)@meshServices%7CgetAsyncJSON(getSelfProp(%self%,meshServices))@meshServiceData%7Cecho(%5BweatherForecast:extract(getSelfProp(%self%,meshServiceData),weather.periods),photoGalleryURLs:extract(getSelfProp(%self%,meshServiceData),photos.url),githubMeta:echo(%5Bdescription:extract(getSelfProp(%self%,meshServiceData),github.description),starCount:extract(getSelfProp(%self%,meshServiceData),github.stargazers_count)%5D)%5D)@contentMesh" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=echo(%5Bgithub:%22https://api.github.com/repos/leoloso/PoP%22,weather:%22https://api.weather.gov/zones/forecast/MOZ028/forecast%22,photos:%22https://picsum.photos/v2/list%22%5D)@meshServices%7CgetAsyncJSON(getSelfProp(%self%,meshServices))@meshServiceData%7Cecho(%5BweatherForecast:extract(getSelfProp(%self%,meshServiceData),weather.periods),photoGalleryURLs:extract(getSelfProp(%self%,meshServiceData),photos.url),githubMeta:echo(%5Bdescription:extract(getSelfProp(%self%,meshServiceData),github.description),starCount:extract(getSelfProp(%self%,meshServiceData),github.stargazers_count)%5D)%5D)@contentMesh">View query results</a>
 
 ### One-graph ready
 
@@ -808,13 +808,13 @@ The example below implements the same logic as the case above, however coding th
   )@contentMesh
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=meshServices" target="_blank">View query results #1</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=meshServices">View query results #1</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=meshServiceData" target="_blank">View query results #2</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=meshServiceData">View query results #2</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=contentMesh" target="_blank">View query results #3</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=contentMesh">View query results #3</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=contentMesh(githubRepo:%22getpop/api-graphql%22,weatherZone:AKZ017,photoPage:3)@contentMesh" target="_blank">View query results #4</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=contentMesh(githubRepo:%22getpop/api-graphql%22,weatherZone:AKZ017,photoPage:3)@contentMesh">View query results #4</a>
 
 ### Persisted fragments
 
@@ -844,13 +844,13 @@ query=
   --contentMesh
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=--meshServices" target="_blank">View query results #1</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=--meshServices">View query results #1</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=--meshServiceData" target="_blank">View query results #2</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=--meshServiceData">View query results #2</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=--contentMesh" target="_blank">View query results #3</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=--contentMesh">View query results #3</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?githubRepo=getpop/api-graphql&amp;weatherZone=AKZ017&amp;photoPage=3&amp;query=--contentMesh" target="_blank">View query results #4</a>
+<a href="https://newapi.getpop.org/api/graphql/?githubRepo=getpop/api-graphql&amp;weatherZone=AKZ017&amp;photoPage=3&amp;query=--contentMesh">View query results #4</a>
 
 ### Combine with REST
 
@@ -874,9 +874,9 @@ Get the best from both GraphQL and REST: query resources based on endpoint, with
     name
 ```
 
-<a href="https://newapi.getpop.org/2013/01/11/markup-html-tags-and-formatting/api/rest/?query=id%7Ctitle%7Cauthor.id%7Cname" target="_blank">View query results #1</a>
+<a href="https://newapi.getpop.org/2013/01/11/markup-html-tags-and-formatting/api/rest/?query=id%7Ctitle%7Cauthor.id%7Cname">View query results #1</a>
 
-<a href="https://newapi.getpop.org/posts/api/rest/?query=id%7Ctitle%7Cauthor.id%7Cname" target="_blank">View query results #2</a>
+<a href="https://newapi.getpop.org/posts/api/rest/?query=id%7Ctitle%7Cauthor.id%7Cname">View query results #2</a>
 
 ### Output in many formats
 
@@ -900,9 +900,9 @@ Replace `"/graphql"` from the URL to output the data in a different format: XML 
     excerpt
 ```
 
-<a href="https://newapi.getpop.org/api/xml/?query=posts.id%7Ctitle%7Cauthor.id%7Cname" target="_blank">View query results #1</a>
+<a href="https://newapi.getpop.org/api/xml/?query=posts.id%7Ctitle%7Cauthor.id%7Cname">View query results #1</a>
 
-<a href="https://newapi.getpop.org/api/props/?query=posts.id%7Ctitle%7Cexcerpt" target="_blank">View query results #2</a>
+<a href="https://newapi.getpop.org/api/props/?query=posts.id%7Ctitle%7Cexcerpt">View query results #2</a>
 
 ### Normalize data for client
 
@@ -925,11 +925,11 @@ Just by removing the `"/graphql"` bit from the URL, the response is normalized, 
 
 Compare the output of the query in PoP native format:
 
-<a href="https://newapi.getpop.org/api/?query=posts.author.posts.comments.author.id%7Cname%7Cposts.id%7Ctitle%7Curl" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/?query=posts.author.posts.comments.author.id%7Cname%7Cposts.id%7Ctitle%7Curl">View query results</a>
 
 ...with the same output in GraphQL format:
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.author.posts.comments.author.id%7Cname%7Cposts.id%7Ctitle%7Curl" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.author.posts.comments.author.id%7Cname%7Cposts.id%7Ctitle%7Curl">View query results</a>
 
 ### Handle issues by severity
 
@@ -971,15 +971,15 @@ Issues are handled differently depending on their severity:
     )
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7Cpublished" target="_blank">View query results #1</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7Cpublished">View query results #1</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:3.5).title" target="_blank">View query results #2</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:3.5).title">View query results #2</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=users.posts(limit:name()).title" target="_blank">View query results #3</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=users.posts(limit:name()).title">View query results #3</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.id%5Bbook%5D(key:value)" target="_blank">View query results #4</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.id%5Bbook%5D(key:value)">View query results #4</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.non-existant-field%7Cis-status(status:non-existant-value)" target="_blank">View query results #5</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.non-existant-field%7Cis-status(status:non-existant-value)">View query results #5</a>
 
 ### Type casting/validation
 
@@ -991,7 +991,7 @@ When an argument has its type declared in the schema, its inputs will be casted 
     title
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:3.5).title" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:3.5).title">View query results</a>
 
 ### Issues bubble upwards
 
@@ -1003,7 +1003,7 @@ If a field or directive fails and it is input to another field, this one may als
     title
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=post(divide(a,4)).title" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=post(divide(a,4)).title">View query results</a>
 
 ### Path to the issue
 
@@ -1018,7 +1018,7 @@ Issues contain the path to the nested field or directive were it was produced.
   >
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=echo(%5Bhola,chau%5D)%3CforEach%3Ctranslate(notexisting:prop)%3E%3E" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=echo(%5Bhola,chau%5D)%3CforEach%3Ctranslate(notexisting:prop)%3E%3E">View query results</a>
 
 ### Log information
 
@@ -1034,7 +1034,7 @@ query=
     date(d/m/Y)
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?actions%5B%5D=show-logs&amp;postId=1&amp;query=post(%24postId).title%7Cdate(d/m/Y)" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?actions%5B%5D=show-logs&amp;postId=1&amp;query=post(%24postId).title%7Cdate(d/m/Y)">View query results</a>
 
 ## Features coming next
 
@@ -1224,7 +1224,7 @@ query=
           >
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?postId=1&query=post(%24postId)@post.content%7Cdate(d/m/Y)@date,getJSON(%22https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions%22)@userList%7CarrayUnique(extract(getSelfProp(%self%,%20userList),lang))@userLangs%7Cextract(getSelfProp(%self%,%20userList),email)@userEmails%7CarrayFill(getJSON(sprintf(%22https://newapi.getpop.org/users/api/rest/?query=name%7Cemail%26emails%5B%5D=%s%22,%5BarrayJoin(getSelfProp(%self%,%20userEmails),%22%26emails%5B%5D=%22)%5D)),getSelfProp(%self%,%20userList),email)@userData,id.post(%24postId)@post%3CcopyRelationalResults(%5Bcontent,%20date%5D,%5BpostContent,%20postDate%5D)%3E%7Cid.getSelfProp(%self%,%20postContent)@postContent%3Ctranslate(from:%20en,to:%20arrayDiff(%5BgetSelfProp(%self%,%20userLangs),%5Ben%5D%5D)),renameProperty(postContent-en)%3E%7CgetSelfProp(%self%,%20userData)@userPostData%3CforEach%3CapplyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%22%22),addArguments:%20%5Bkey:%20postContent,array:%20%value%,value:%20getSelfProp(%self%,sprintf(postContent-%s,%5Bextract(%value%,%20lang)%5D))%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%22%22),addArguments:%20%5Bkey:%20header,array:%20%value%,value:%20sprintf(string:%20%22%3Cp%3EHi%20%s,%20we%20published%20this%20post%20on%20%s,%20enjoy!%3C/p%3E%22,values:%20%5Bextract(%value%,%20name),getSelfProp(%self%,%20postDate)%5D)%5D)%3E%3E%7Cid.getSelfProp(%self%,%20userPostData)@translatedUserPostProps%3CforEach(if:%20not(equals(extract(%value%,%20lang),en)))%3CadvancePointerInArray(path:%20header,appendExpressions:%20%5BtoLang:%20extract(%value%,%20lang)%5D)%3Ctranslate(from:%20en,to:%20%toLang%,oneLanguagePerField:%20true,override:%20true)%3E%3E%3E%7Cid.getSelfProp(%self%,translatedUserPostProps)@emails%3CforEach%3CapplyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20content,array:%20%value%,value:%20concat(%5Bextract(%value%,%20header),extract(%value%,%20postContent)%5D)%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20to,array:%20%value%,value:%20extract(%value%,%20email)%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20subject,array:%20%value%,value:%20%22PoP%20API%20example%20:)%22%5D),sendByEmail%3E%3E" target="_blank">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?postId=1&query=post(%24postId)@post.content%7Cdate(d/m/Y)@date,getJSON(%22https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions%22)@userList%7CarrayUnique(extract(getSelfProp(%self%,%20userList),lang))@userLangs%7Cextract(getSelfProp(%self%,%20userList),email)@userEmails%7CarrayFill(getJSON(sprintf(%22https://newapi.getpop.org/users/api/rest/?query=name%7Cemail%26emails%5B%5D=%s%22,%5BarrayJoin(getSelfProp(%self%,%20userEmails),%22%26emails%5B%5D=%22)%5D)),getSelfProp(%self%,%20userList),email)@userData,id.post(%24postId)@post%3CcopyRelationalResults(%5Bcontent,%20date%5D,%5BpostContent,%20postDate%5D)%3E%7Cid.getSelfProp(%self%,%20postContent)@postContent%3Ctranslate(from:%20en,to:%20arrayDiff(%5BgetSelfProp(%self%,%20userLangs),%5Ben%5D%5D)),renameProperty(postContent-en)%3E%7CgetSelfProp(%self%,%20userData)@userPostData%3CforEach%3CapplyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%22%22),addArguments:%20%5Bkey:%20postContent,array:%20%value%,value:%20getSelfProp(%self%,sprintf(postContent-%s,%5Bextract(%value%,%20lang)%5D))%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%22%22),addArguments:%20%5Bkey:%20header,array:%20%value%,value:%20sprintf(string:%20%22%3Cp%3EHi%20%s,%20we%20published%20this%20post%20on%20%s,%20enjoy!%3C/p%3E%22,values:%20%5Bextract(%value%,%20name),getSelfProp(%self%,%20postDate)%5D)%5D)%3E%3E%7Cid.getSelfProp(%self%,%20userPostData)@translatedUserPostProps%3CforEach(if:%20not(equals(extract(%value%,%20lang),en)))%3CadvancePointerInArray(path:%20header,appendExpressions:%20%5BtoLang:%20extract(%value%,%20lang)%5D)%3Ctranslate(from:%20en,to:%20%toLang%,oneLanguagePerField:%20true,override:%20true)%3E%3E%3E%7Cid.getSelfProp(%self%,translatedUserPostProps)@emails%3CforEach%3CapplyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20content,array:%20%value%,value:%20concat(%5Bextract(%value%,%20header),extract(%value%,%20postContent)%5D)%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20to,array:%20%value%,value:%20extract(%value%,%20email)%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20subject,array:%20%value%,value:%20%22PoP%20API%20example%20:)%22%5D),sendByEmail%3E%3E">View query results</a>
 
 **Step-by-step description of the solution:**
 
