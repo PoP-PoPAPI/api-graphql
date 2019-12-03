@@ -1036,6 +1036,198 @@ query=
 
 <a href="https://newapi.getpop.org/api/graphql/?actions%5B%5D=show-logs&amp;postId=1&amp;query=post(%24postId).title%7Cdate(d/m/Y)" target="_blank">View query results</a>
 
+## Features coming next
+
+### Mutations
+
+The query will be able to place mutations anywhere (not only on the root) and these will be integrated to the graph: The mutation result can, itself, be input to another field, be added to a nested subquery, and so on.
+
+```less
+/?query=
+  addPost($title, $content).
+    addComment($comment1)|
+    addComment($comment2).
+      author<sendConfirmationByEmail>.
+        followers<notifyByEmail, notifyBySlack>
+```
+
+## Example using the API
+
+_Use case to implement:_
+
+Create an automated email-sending service using data from 3 sources:
+
+1. A REST API to fetch the recipients (list of rows with columns `email` and `lang`)
+2. A REST API to fetch client data (a list of rows with columns `email` and `name`)
+3. Blog posts published in your website
+
+The email sent to the recipient must be customized:
+
+1. Greeting the person by name
+2. Translating the blog post's content to the user's preferred language
+
+_Solution:_
+
+```less
+/?
+postId=1&
+query=
+  post($postId)@post.
+    content|
+    date(d/m/Y)@date,
+  getJSON("https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions")@userList|
+  arrayUnique(
+    extract(
+      getSelfProp(%self%, userList),
+      lang
+    )
+  )@userLangs|
+  extract(
+    getSelfProp(%self%, userList),
+    email
+  )@userEmails|
+  arrayFill(
+    getJSON(
+      sprintf(
+        "https://newapi.getpop.org/users/api/rest/?query=name|email%26emails[]=%s",
+        [arrayJoin(
+          getSelfProp(%self%, userEmails),
+          "%26emails[]="
+        )]
+      )
+    ),
+    getSelfProp(%self%, userList),
+    email
+  )@userData,
+  id.
+    post($postId)@post<
+      copyRelationalResults(
+        [content, date],
+        [postContent, postDate]
+      )
+    >|
+    id.
+      getSelfProp(%self%, postContent)@postContent<
+        translate(
+          from: en,
+          to: arrayDiff([
+            getSelfProp(%self%, userLangs),
+            [en]
+          ])
+        ),
+        renameProperty(postContent-en)
+      >|
+      getSelfProp(%self%, userData)@userPostData<
+        forEach<
+          applyFunction(
+            function: arrayAddItem(
+              array: [],
+              value: ""
+            ),
+            addArguments: [
+              key: postContent,
+              array: %value%,
+              value: getSelfProp(
+                %self%,
+                sprintf(
+                  postContent-%s,
+                  [extract(%value%, lang)]
+                )
+              )
+            ]
+          ),
+          applyFunction(
+            function: arrayAddItem(
+              array: [],
+              value: ""
+            ),
+            addArguments: [
+              key: header,
+              array: %value%,
+              value: sprintf(
+                string: "<p>Hi %s, we published this post on %s, enjoy!</p>",
+                values: [
+                  extract(%value%, name),
+                  getSelfProp(%self%, postDate)
+                ]
+              )
+            ]
+          )
+        >
+      >|
+      id.
+        getSelfProp(%self%, userPostData)@translatedUserPostProps<
+          forEach(
+            if: not(
+              equals(
+                extract(%value%, lang),
+                en
+              )
+            )
+          )<
+            advancePointerInArray(
+              path: header,
+              appendExpressions: [
+                toLang: extract(%value%, lang)
+              ]
+            )<
+              translate(
+                from: en,
+                to: %toLang%,
+                oneLanguagePerField: true,
+                override: true
+              )
+            >
+          >
+        >|
+        id.
+          getSelfProp(%self%,translatedUserPostProps)@emails<
+            forEach<
+              applyFunction(
+                function: arrayAddItem(
+                  array: [],
+                  value: []
+                ),
+                addArguments: [
+                  key: content,
+                  array: %value%,
+                  value: concat([
+                    extract(%value%, header),
+                    extract(%value%, postContent)
+                  ])
+                ]
+              ),
+              applyFunction(
+                function: arrayAddItem(
+                  array: [],
+                  value: []
+                ),
+                addArguments: [
+                  key: to,
+                  array: %value%,
+                  value: extract(%value%, email)
+                ]
+              ),
+              applyFunction(
+                function: arrayAddItem(
+                  array: [],
+                  value: []
+                ),
+                addArguments: [
+                  key: subject,
+                  array: %value%,
+                  value: "PoP API example :)"
+                ]
+              ),
+              sendByEmail
+            >
+          >
+```
+
+_Step-by-step description of the solution:_
+
+[leoloso.com/posts/demonstrating-pop-api-graphql-on-steroids/](https://leoloso.com/posts/demonstrating-pop-api-graphql-on-steroids/)
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
