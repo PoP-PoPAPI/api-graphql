@@ -1053,7 +1053,7 @@ The query will be able to place mutations anywhere (not only on the root) and th
 
 ## Example using the API
 
-_Use case to implement:_
+**Use case to implement:**
 
 Create an automated email-sending service using data from 3 sources:
 
@@ -1066,7 +1066,7 @@ The email sent to the recipient must be customized:
 1. Greeting the person by name
 2. Translating the blog post's content to the user's preferred language
 
-_Solution:_
+**Solution:**
 
 ```less
 /?
@@ -1224,7 +1224,7 @@ query=
           >
 ```
 
-_Step-by-step description of the solution:_
+**Step-by-step description of the solution:**
 
 [leoloso.com/posts/demonstrating-pop-api-graphql-on-steroids/](https://leoloso.com/posts/demonstrating-pop-api-graphql-on-steroids/)
 
