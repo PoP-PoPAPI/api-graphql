@@ -380,9 +380,31 @@ The example below implements the standard GraphQL `skip` directive, however it i
 
 <a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7Cfeaturedimage<skip(if:isNull(featuredimage()))>.src">View query results</a>
 
+This behaviour enables to modify the output of the field on a fine-grained manner. For instance, the following code satisfies the same example from the section above, using directive `include` to alternate the output of a field between several values, based on the post object having comments or not:
+
+```less
+/?
+format=Y-m-d&
+query=
+  posts.
+    sprintf(
+      "This post has %s comment(s) and title '%s'", [
+        comments-count(),
+        title()
+      ]
+    )@postDesc<include(if:has-comments())>|
+    sprintf(
+      "This post was created on %s and has no comments", [
+        date(format: if(not(empty($format)), $format, d/m/Y))
+      ]
+    )@postDesc<include(if:not(has-comments()))>
+```
+
+<a href="https://newapi.getpop.org/api/graphql/?format=Y-m-d&query=posts.sprintf(%22This%20post%20has%20%s%20comment(s)%20and%20title%20%27%s%27%22,%20[comments-count(),title()])@postDesc%3Cinclude(if:has-comments())%3E|sprintf(%22This%20post%20was%20created%20on%20%s%20and%20has%20no%20comments%22,%20[date(format:%20if(not(empty($format)),%20$format,%20d/m/Y))])@postDesc%3Cinclude(if:not(has-comments()))%3E">View query results</a>
+
 ### Skip output if null
 
-Exactly the same result above (`<skip(if(isNull(...)))>`) can be accomplished using the `?` operator: Adding it after a field, it skips the output of its value if it is null.
+Exactly the same result from section above (`<skip(if(isNull(...)))>`) can be accomplished using the `?` operator: Adding it after a field, it skips the output of its value if it is null.
 
 ```less
 /?query=
