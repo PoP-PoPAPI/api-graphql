@@ -72,7 +72,7 @@ This architectural decision has several advantages over a schema-based implement
 
 ## Automatically-generated schema
 
-This implementation is called “schemaless” only because the developer does not need to create schemas to represent the data model. Instead, the schema is **automatically-generated from the component model itself**, simply by coding classes following OOP principles. 
+The schema is **automatically-generated from the component model itself**, simply by coding classes following OOP principles. 
 
 As a consequence, there is no need to manually define the hundreds (or even thousands) of properties on the schema, which leads to increased productivity.
 
