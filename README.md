@@ -9,7 +9,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 -->
 
-Convert your application into a GraphQL server. This implementation is a package to be installed on top of the [PoP API](https://github.com/getpop/api).
+Extended/Upgraded implementation of GraphQL. This implementation is a package to be installed on top of the [PoP API](https://github.com/getpop/api).
 
 ## Install
 

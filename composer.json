@@ -1,7 +1,7 @@
 {
     "name": "getpop/api-graphql",
     "type": "library",
-    "description": "Output the PoP API using the GraphQL format",
+    "description": "Extended/Upgraded implementation of GraphQL, implemented on PHP, based on the PoP API",
     "keywords": [
         "PoP",
         "api-graphql"
