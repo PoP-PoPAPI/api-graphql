@@ -86,7 +86,7 @@ GraphQL API for PoP supports a [different syntax](https://github.com/getpop/fiel
 
 - Server-side caching
 - Operators and Helper fields
-- Nested fields
+- Composable fields
 
 Please refer to the [Field Query](https://github.com/getpop/field-query) documentation to see examples on these superpowers.
 
@@ -306,7 +306,7 @@ All operators and functions provided by the language (PHP) can be made available
 
 <a href="https://newapi.getpop.org/api/graphql?query=context">View query results #8</a>
 
-### Nested fields
+### Composable fields
 
 The value from a field can be the input to another field, and there is no limit how many levels deep it can be.
 
@@ -331,9 +331,9 @@ In the example below, field `post` is injected, in its field argument `id`, the 
 
 To tell if a field argument must be considered a field or a string, if it contains `()` it is a field, otherwise it is a string (eg: `posts()` is a field, and `posts` is a string)
 
-### Nested fields with operators and helpers
+### Composable fields with operators and helpers
 
-Operators and helpers are standard fields, so they can be employed for nested fields. This makes available composable elements to the query, which removes the need to implement custom code in the resolvers, or to fetch raw data that is then processed in the application in the client-side. Instead, logic can be provided in the query itself.
+Operators and helpers are standard fields, so they can be employed for composable fields. This makes available composable elements to the query, which removes the need to implement custom code in the resolvers, or to fetch raw data that is then processed in the application in the client-side. Instead, logic can be provided in the query itself.
 
 ```less
 /?
@@ -360,9 +360,9 @@ query=
 
 This solves an issue with GraphQL: That we may need to define a field argument with arbitrary values in order to provide variations of the field's response (which is akin to REST's way of creating multiple endpoints to satisfy different needs, such as `/posts-1st-format/` and `/posts-2nd-format/`).
 
-### Nested fields in directive arguments
+### Composable fields in directive arguments
 
-Through nested fields, the directive can be evaluated against the object, granting it a dynamic behavior.
+Through composable fields, the directive can be evaluated against the object, granting it a dynamic behavior.
 
 The example below implements the standard GraphQL `skip` directive, however it is able to decide if to skip the field or not based on a condition from the object itself:
 
@@ -482,7 +482,7 @@ In the example below, an array contains strings to translate and the language to
 
 Cache the response from the query using standard [HTTP caching](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching). 
 
-The response will contain `Cache-Control` header with the `max-age` value set at the time (in seconds) to cache the request, or `no-store` if the request must not be cached. Each field in the schema can configure its own `max-age` value, and the response's `max-age` is calculated as the lowest `max-age` among all requested fields (including nested fields).
+The response will contain `Cache-Control` header with the `max-age` value set at the time (in seconds) to cache the request, or `no-store` if the request must not be cached. Each field in the schema can configure its own `max-age` value, and the response's `max-age` is calculated as the lowest `max-age` among all requested fields (including composable fields).
 
 Examples:
 
@@ -497,7 +497,7 @@ Examples:
   posts.
     title
 
-//3. Nested fields also supported
+//3. Composable fields also supported
 /?query=
   echo(posts())
 
@@ -1027,7 +1027,7 @@ If a field or directive fails and it is input to another field, this one may als
 
 ### Path to the issue
 
-Issues contain the path to the nested field or directive were it was produced.
+Issues contain the path to the composed field or directive were it was produced.
 
 ```less
 /?query=
