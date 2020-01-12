@@ -231,13 +231,13 @@ props=
 
 Because it is generated from code, different schemas can be created for different use cases, from a single source of truth. And the schema is natively decentralized or federated, enabling different teams to operate on their own source code.
 
-To visualize it, we use the standard introspection field `__schema`:
+To visualize it, in addition to the standard introspection field `__schema`, we can query field `__fullSchema`:
 
 ```less
-/?query=__schema
+/?query=__fullSchema
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=__schema">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=__fullSchema">View query results</a>
 
 ### Skip argument names
 
