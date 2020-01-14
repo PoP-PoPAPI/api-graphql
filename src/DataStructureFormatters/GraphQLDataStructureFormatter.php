@@ -18,7 +18,7 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         $ret = [];
 
         // Add errors
-        $errors = $warnings = [];
+        $errors = $warnings = $deprecations = [];
         if ($data['dbErrors']) {
             $errors = $this->reformatDBEntries($data['dbErrors']);
         }
@@ -53,8 +53,17 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         }
 
         // Add deprecations
+        if ($data['dbDeprecations']) {
+            $deprecations = $this->reformatDBEntries($data['dbDeprecations']);
+        }
         if ($data['schemaDeprecations']) {
-            $ret['deprecations'] = $this->reformatSchemaEntries($data['schemaDeprecations']);
+            $deprecations = array_merge(
+                $deprecations,
+                $this->reformatSchemaEntries($data['schemaDeprecations'])
+            );
+        }
+        if ($deprecations) {
+            $ret['deprecations'] = $deprecations;
         }
 
         // Logs
