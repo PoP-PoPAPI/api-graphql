@@ -76,9 +76,9 @@ The schema is **automatically-generated from the component model itself**, simpl
 
 As a consequence, there is no need to manually define the hundreds (or even thousands) of properties on the schema, which leads to increased productivity.
 
-Similar to GraphQL, the schema can be inspected through the introspection `"__schema"` field:
+Similar to GraphQL, the schema can be inspected through field `"fullSchema"`:
 
-- [/api/graphql/?query=__schema](https://nextapi.getpop.org/api/graphql/?query=__schema)
+- [/api/graphql/?query=fullSchema](https://nextapi.getpop.org/api/graphql/?query=fullSchema)
 
 ## Syntax supporting URL-based queries
 
