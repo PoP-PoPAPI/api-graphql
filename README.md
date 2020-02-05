@@ -341,10 +341,10 @@ format=Y-m-d&
 query=
   posts.
     if (
-      has-comments(), 
+      hasComments(), 
       sprintf(
         "This post has %s comment(s) and title '%s'", [
-          comments-count(),
+          commentsCount(),
           title()
         ]
       ), 
@@ -356,7 +356,7 @@ query=
     )@postDesc
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?format=Y-m-d&amp;query=posts.if(has-comments(),sprintf(%22This%20post%20has%20%s%20comment(s)%20and%20title%20%27%s%27%22,%5Bcomments-count(),title()%5D),sprintf(%22This%20post%20was%20created%20on%20%s%20and%20has%20no%20comments%22,%5Bdate(format:if(not(empty(%24format)),%24format,d/m/Y))%5D))@postDesc">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?format=Y-m-d&amp;query=posts.if(hasComments(),sprintf(%22This%20post%20has%20%s%20comment(s)%20and%20title%20%27%s%27%22,%5BcommentsCount(),title()%5D),sprintf(%22This%20post%20was%20created%20on%20%s%20and%20has%20no%20comments%22,%5Bdate(format:if(not(empty(%24format)),%24format,d/m/Y))%5D))@postDesc">View query results</a>
 
 This solves an issue with GraphQL: That we may need to define a field argument with arbitrary values in order to provide variations of the field's response (which is akin to REST's way of creating multiple endpoints to satisfy different needs, such as `/posts-1st-format/` and `/posts-2nd-format/`).
 
@@ -387,18 +387,18 @@ query=
   posts.
     sprintf(
       "This post has %s comment(s) and title '%s'", [
-        comments-count(),
+        commentsCount(),
         title()
       ]
-    )@postDesc<include(if:has-comments())>|
+    )@postDesc<include(if:hasComments())>|
     sprintf(
       "This post was created on %s and has no comments", [
         date(format: if(not(empty($format)), $format, d/m/Y))
       ]
-    )@postDesc<include(if:not(has-comments()))>
+    )@postDesc<include(if:not(hasComments()))>
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?format=Y-m-d&query=posts.sprintf(%22This%20post%20has%20%s%20comment(s)%20and%20title%20%27%s%27%22,%20[comments-count(),title()])@postDesc%3Cinclude(if:has-comments())%3E|sprintf(%22This%20post%20was%20created%20on%20%s%20and%20has%20no%20comments%22,%20[date(format:%20if(not(empty($format)),%20$format,%20d/m/Y))])@postDesc%3Cinclude(if:not(has-comments()))%3E">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?format=Y-m-d&query=posts.sprintf(%22This%20post%20has%20%s%20comment(s)%20and%20title%20%27%s%27%22,%20[commentsCount(),title()])@postDesc%3Cinclude(if:hasComments())%3E|sprintf(%22This%20post%20was%20created%20on%20%s%20and%20has%20no%20comments%22,%20[date(format:%20if(not(empty($format)),%20$format,%20d/m/Y))])@postDesc%3Cinclude(if:not(hasComments()))%3E">View query results</a>
 
 ### Skip output if null
 
