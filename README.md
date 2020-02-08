@@ -35,7 +35,7 @@ $ composer require getpop/api-graphql dev-master
     ...
 }
 ```
-
+<!--
 ### Enable pretty permalinks
 
 Add the following code in the `.htaccess` file to enable API endpoint `/api/graphql/`:
@@ -57,6 +57,7 @@ RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteRule ^api/graphql/?$ /?scheme=api&datastructure=graphql [L,P,QSA]
 </IfModule>
 ```
+-->
 <!--
 ## Usage
 
