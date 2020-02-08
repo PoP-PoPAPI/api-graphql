@@ -13,12 +13,6 @@ Extended/Upgraded implementation of GraphQL. This implementation is a package to
 
 ## Install
 
-### Installing a fully-working API:
-
-Follow the instructions under [Bootstrap a PoP API for WordPress](https://github.com/leoloso/PoP-API-WP) (even though CMS-agnostic, only the WordPress adapters have been presently implemented).
-
-### Installing this library: 
-
 Via Composer
 
 ``` bash
@@ -37,6 +31,9 @@ $ composer require getpop/api-graphql dev-master
 ```
 
 To enable pretty API endpoint `/api/graphql/`, follow the instructions [here](https://github.com/getpop/api#enable-pretty-permalinks)
+
+> Note: if you wish to install a fully-working API, please follow the instructions under [Bootstrap a PoP API for WordPress](https://github.com/leoloso/PoP-API-WP) (even though CMS-agnostic, only the WordPress adapters have been presently implemented).
+
 <!--
 Add the following code in the `.htaccess` file to enable API endpoint `/api/graphql/`:
 
