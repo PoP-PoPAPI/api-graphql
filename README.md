@@ -870,6 +870,30 @@ query=
 
 <a href="https://newapi.getpop.org/api/graphql/?githubRepo=getpop/api-graphql&amp;weatherZone=AKZ017&amp;photoPage=3&amp;query=--contentMesh">View query results #4</a>
 
+### Persisted queries
+
+Queries can also be persisted in the server, then we can just publish queries and disable access to the GraphQL server, increasing the security. 
+
+In the `query` field, instead of passing the query, we pass a persisted query name, preceded with `!`:
+
+```less
+// 1. Access persisted query
+/?query=
+  !contentMesh
+
+// 2. Customize it with variables
+/?
+githubRepo=getpop/api-graphql&
+weatherZone=AKZ017&
+photoPage=3&
+query=
+  !contentMesh
+```
+
+<a href="https://newapi.getpop.org/api/graphql/?query=!contentMesh">View query results #1</a>
+
+<a href="https://newapi.getpop.org/api/graphql/?githubRepo=getpop/api-graphql&amp;weatherZone=AKZ017&amp;photoPage=3&amp;query=!contentMesh">View query results #2</a>
+
 ### Automatic namespacing of types and interfaces
 
 Namespaces ([proposed to be added to the GraphQL spec](https://github.com/graphql/graphql-spec/issues/163)) help manage the complexity of the schema. This can avoid different types having the same name, which can happen when embedding components from a 3rd party.
