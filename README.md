@@ -914,6 +914,8 @@ Fields and directives can be independently versioned, and the version to use can
 
 It is similar to how REST supports versioning, but extremely fine grained: instead of versioning the whole API, or the endpoint, what is versioned is a single field or directive, and a query can involve different versions for different fields.
 
+To select the version for the field/directive, we use the same [semver version constraints employed by Composer](https://getcomposer.org/doc/articles/versions.md#writing-version-constraints), passed through field/directive argument `versionConstraint`:
+
 ```less
 // Selecting version for fields
 /?query=
@@ -935,15 +937,15 @@ It is similar to how REST supports versioning, but extremely fine grained: inste
 
 #### Demonstration for GraphQL
 
-In [this query](https://newapi.getpop.org/graphiql/?query=query%20%7B%0A%20%20olderVersion%3AuserServiceURLs(versionConstraint%3A%220.1.0%22)%0A%20%20newerVersion%3AuserServiceURLs(versionConstraint%3A%220.2.0%22)%0A%7D), field `userServiceURLs` has 2 versions, `0.1.0` and `0.2.0`, and we can choose one or the other through field argument `versionConstraint`:
+In [this query](https://newapi.getpop.org/graphiql/?query=query%20%7B%0A%20%20olderVersion%3AuserServiceURLs(versionConstraint%3A%220.1.0%22)%0A%20%20newerVersion%3AuserServiceURLs(versionConstraint%3A%220.2.0%22)%0A%7D), field `userServiceURLs` has 2 versions, `0.1.0` and `0.2.0`:
 
 ![Querying a field using by version](https://raw.githubusercontent.com/getpop/api-graphql/master/assets/images/versioning-field-directives-1.jpg)
 
-We can also pass rules such as `^` or `>` to select the version, following the same [semantic versioning rules used by Composer](https://getcomposer.org/doc/articles/versions.md#writing-version-constraints). In [this query](https://newapi.getpop.org/graphiql/?query=query%20%7B%0A%20%20%23This%20will%20produce%20version%200.1.0%0A%20%20firstVersion%3AuserServiceURLs(versionConstraint%3A%22%5E0.1%22)%0A%20%20%23%20This%20will%20produce%20version%200.2.0%0A%20%20secondVersion%3AuserServiceURLs(versionConstraint%3A%22%3E0.1%22)%0A%20%20%23%20This%20will%20produce%20version%200.2.0%0A%20%20thirdVersion%3AuserServiceURLs(versionConstraint%3A%22%5E0.2%22)%0A%7D), constraint `"^0.1"` is resolved to version `"0.1.0"`, but constraint `">0.1"` is resolved to version `"0.2.0"`:
+Let's use constraints with `^` and `>` to select the version. In [this query](https://newapi.getpop.org/graphiql/?query=query%20%7B%0A%20%20%23This%20will%20produce%20version%200.1.0%0A%20%20firstVersion%3AuserServiceURLs(versionConstraint%3A%22%5E0.1%22)%0A%20%20%23%20This%20will%20produce%20version%200.2.0%0A%20%20secondVersion%3AuserServiceURLs(versionConstraint%3A%22%3E0.1%22)%0A%20%20%23%20This%20will%20produce%20version%200.2.0%0A%20%20thirdVersion%3AuserServiceURLs(versionConstraint%3A%22%5E0.2%22)%0A%7D), constraint `"^0.1"` is resolved to version `"0.1.0"`, but constraint `">0.1"` is resolved to version `"0.2.0"`:
 
 ![Querying a field using version constraints](https://raw.githubusercontent.com/getpop/api-graphql/master/assets/images/versioning-field-directives-2.jpg)
 
-It works for directives too, as shown in [this query](https://newapi.getpop.org/graphiql/?query=query%20%7B%0A%20%20post(id%3A1)%20%7B%0A%20%20%20%20titleCase%3Atitle%40makeTitle(versionConstraint%3A%22%5E0.1%22)%0A%20%20%20%20upperCase%3Atitle%40makeTitle(versionConstraint%3A%22%5E0.2%22)%0A%20%20%7D%0A%7D):
+[This query](https://newapi.getpop.org/graphiql/?query=query%20%7B%0A%20%20post(id%3A1)%20%7B%0A%20%20%20%20titleCase%3Atitle%40makeTitle(versionConstraint%3A%22%5E0.1%22)%0A%20%20%20%20upperCase%3Atitle%40makeTitle(versionConstraint%3A%22%5E0.2%22)%0A%20%20%7D%0A%7D) demonstrates it for directives:
 
 ![Querying a directive using version constraints](https://raw.githubusercontent.com/getpop/api-graphql/master/assets/images/versioning-field-directives-3.jpg)
 
