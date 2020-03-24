@@ -926,7 +926,7 @@ It works for directives too, as shown in [this query](https://newapi.getpop.org/
 
 ![Querying a directive using version constraints](https://raw.githubusercontent.com/getpop/api-graphql/master/assets/images/versioning-field-directives-3.jpg)
 
-Adding the `versionConstraint` parameter in the [GraphQL endpoint itself]((https://newapi.getpop.org/api/endpoint/?versionConstraint=^0.1)) will implicitly define that version constraint in all fields, and any field can still override this default value with its own `versionConstraint`, as in <a href="https://newapi.getpop.org/graphiql/?versionConstraint=^0.1&query=query {%0A%20 %23This will produce version 0.1.0%0A%20 implicitVersion%3A userServiceURLs%0A%20 %23This will produce version 0.2.0%0A%20 explicitVersion%3A userServiceURLs(versionConstraint%3A"^0.2")%0A}">this query</a>:
+Adding the `versionConstraint` parameter in the [GraphQL endpoint itself](https://newapi.getpop.org/api/endpoint/?versionConstraint=^0.1) will implicitly define that version constraint in all fields, and any field can still override this default value with its own `versionConstraint`, as in <a href='https://newapi.getpop.org/graphiql/?versionConstraint=^0.1&query=query {%0A%20 %23This will produce version 0.1.0%0A%20 implicitVersion%3A userServiceURLs%0A%20 %23This will produce version 0.2.0%0A%20 explicitVersion%3A userServiceURLs(versionConstraint%3A"^0.2")%0A}'>this query</a>:
 
 ![Overriding a default version constraint](https://raw.githubusercontent.com/getpop/api-graphql/master/assets/images/versioning-field-directives-4.jpg)
 
