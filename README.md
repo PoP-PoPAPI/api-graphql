@@ -933,7 +933,7 @@ It is similar to how REST supports versioning, but extremely fine grained: inste
 
 <a href="https://newapi.getpop.org/api/graphql/?query=post($postId).title@titleCase%3CmakeTitle(versionConstraint:^0.1)%3E|title@upperCase%3CmakeTitle(versionConstraint:^0.2)%3E&postId=1">View query results #2</a>
 
-_Demonstration for GraphQL:_
+#### Demonstration for GraphQL
 
 In [this query](https://newapi.getpop.org/graphiql/?query=query%20%7B%0A%20%20olderVersion%3AuserServiceURLs(versionConstraint%3A%220.1.0%22)%0A%20%20newerVersion%3AuserServiceURLs(versionConstraint%3A%220.2.0%22)%0A%7D), field `userServiceURLs` has 2 versions, `0.1.0` and `0.2.0`, and we can choose one or the other through field argument `versionConstraint`:
 
