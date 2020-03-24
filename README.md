@@ -910,11 +910,9 @@ This is how it looks in [its namespaced version](https://newapi.getpop.org/graph
 
 ### Field/directive-based versioning
 
-Fields and directives can be independently versioned, and the version to use can be specified in the query through field/directive arguments. 
+Fields and directives can be independently versioned, and the version to use can be specified in the query through the field/directive argument `versionConstraint`. 
 
-It is similar to how REST supports versioning, but extremely fine grained: instead of versioning the whole API, or the endpoint, what is versioned is a single field or directive, and a query can involve different versions for different fields.
-
-To select the version for the field/directive, we use the same [semver version constraints employed by Composer](https://getcomposer.org/doc/articles/versions.md#writing-version-constraints), passed through field/directive argument `versionConstraint`:
+To select the version for the field/directive, we use the same [semver version constraints employed by Composer](https://getcomposer.org/doc/articles/versions.md#writing-version-constraints):
 
 ```less
 // Selecting version for fields
