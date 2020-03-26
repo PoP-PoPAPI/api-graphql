@@ -38,6 +38,16 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
             $ret['errors'] = $errors;
         }
 
+        /**
+         * "Warnings", "deprecations", and "logEntries" top-level entries:
+         * since they are not part of the spec, place them under the top-level entry "extensions":
+         *
+         * > This entry is reserved for implementors to extend the protocol however they see fit,
+         * > and hence there are no additional restrictions on its contents.
+         *
+         * @see http://spec.graphql.org/June2018/#sec-Response-Format
+         */
+
         // Add warnings
         if ($data['dbWarnings']) {
             $warnings = $this->reformatDBEntries($data['dbWarnings']);
@@ -49,7 +59,7 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
             );
         }
         if ($warnings) {
-            $ret['warnings'] = $warnings;
+            $ret['extensions']['warnings'] = $warnings;
         }
 
         // Add deprecations
@@ -63,12 +73,12 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
             );
         }
         if ($deprecations) {
-            $ret['deprecations'] = $deprecations;
+            $ret['extensions']['deprecations'] = $deprecations;
         }
 
         // Logs
         if ($data['logEntries']) {
-            $ret['logEntries'] = $data['logEntries'];
+            $ret['extensions']['logEntries'] = $data['logEntries'];
         }
 
         if ($resultData = parent::getFormattedData($data)) {
