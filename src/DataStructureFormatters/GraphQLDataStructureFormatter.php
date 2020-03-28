@@ -78,7 +78,7 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
 
         // Logs
         if ($data['logEntries']) {
-            $ret['extensions']['logEntries'] = $data['logEntries'];
+            $ret['extensions']['logs'] = $data['logEntries'];
         }
 
         if ($resultData = parent::getFormattedData($data)) {
