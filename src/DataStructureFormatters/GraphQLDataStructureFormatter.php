@@ -6,7 +6,8 @@ namespace PoP\GraphQLAPI\DataStructureFormatters;
 
 use PoP\APIMirrorQuery\DataStructureFormatters\MirrorQueryDataStructureFormatter;
 use PoP\ComponentModel\Feedback\Tokens;
-use PoP\FieldQuery\QueryUtils;
+
+// use PoP\GraphQLAPIQuery\Schema\GraphQLQueryUtils;
 
 class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
 {
@@ -143,18 +144,26 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
     protected function reformatQueryEntries($entries)
     {
         $ret = [];
-        foreach ($entries as $location => $message) {
+        foreach ($entries as $message => $extensions) {
             $entry = [
                 'message' => $message,
             ];
-            if (is_string($location)) {
-                $entry['location'] = QueryUtils::convertLocationStringIntoArray($location);
-            }
-            $entry['extensions'] = [
-                'type' => 'query',
-            ];
+            // if (is_string($location)) {
+            //     $entry['location'] = GraphQLQueryUtils::convertLocationStringIntoArray($location);
+            // }
+            $this->addExtensions($entry, $extensions);
             $ret[] = $entry;
         }
         return $ret;
+    }
+
+    protected function addExtensions(array &$entry, array $extensions): void
+    {
+        $entry['extensions'] = array_merge(
+            [
+                'type' => 'query',
+            ],
+            $extensions
+        );
     }
 }
