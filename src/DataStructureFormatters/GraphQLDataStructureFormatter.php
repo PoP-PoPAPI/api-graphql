@@ -7,8 +7,6 @@ namespace PoP\GraphQLAPI\DataStructureFormatters;
 use PoP\APIMirrorQuery\DataStructureFormatters\MirrorQueryDataStructureFormatter;
 use PoP\ComponentModel\Feedback\Tokens;
 
-// use PoP\GraphQLAPIQuery\Schema\GraphQLQueryUtils;
-
 class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
 {
     public const NAME = 'graphql';
@@ -148,9 +146,6 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
             $entry = [
                 'message' => $message,
             ];
-            // if (is_string($location)) {
-            //     $entry['location'] = GraphQLQueryUtils::convertLocationStringIntoArray($location);
-            // }
             $this->addExtensions($entry, $extensions);
             $ret[] = $entry;
         }
