@@ -537,7 +537,7 @@ In the example below, field `excerpt` does not normally support field arg `lengt
   posts.
     excerpt(length:30)
 
-//3. New feature available under 
+//3. New feature available under
 // experimental branch
 /?query=
   posts.
@@ -546,6 +546,7 @@ In the example below, field `excerpt` does not normally support field arg `lengt
       branch:experimental
     )
 ```
+
 <a href="https://newapi.getpop.org/api/graphql/?query=posts.excerpt">View query results #1</a>
 
 <a href="https://newapi.getpop.org/api/graphql/?query=posts.excerpt(length:30)">View query results #2</a>
@@ -1034,23 +1035,23 @@ Issues are handled differently depending on their severity:
   posts.
     title|
     published
-    
+
 //2. Schema warning
 /?query=
   posts(limit:3.5).
     title
-    
+
 //3. Database warning
 /?query=
   users.
     posts(limit:name()).
       title
-      
+
 //4. Query error
 /?query=
   posts.
     id[book](key:value)
-    
+
 //5. Schema error
 /?query=
   posts.
