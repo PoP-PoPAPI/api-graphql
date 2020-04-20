@@ -1034,7 +1034,7 @@ Issues are handled differently depending on their severity:
 /?query=
   posts.
     title|
-    published
+    isPublished
 
 //2. Schema warning
 /?query=
