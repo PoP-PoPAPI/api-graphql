@@ -1061,7 +1061,7 @@ Issues are handled differently depending on their severity:
     )
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7Cpublished">View query results #1</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7CisPublished">View query results #1</a>
 
 <a href="https://newapi.getpop.org/api/graphql/?query=posts(limit:3.5).title">View query results #2</a>
 
