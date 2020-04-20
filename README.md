@@ -1055,9 +1055,9 @@ Issues are handled differently depending on their severity:
 //5. Schema error
 /?query=
   posts.
-    non-existant-field|
-    is-status(
-      status:non-existant-value
+    nonExistantField|
+    isStatus(
+      status:nonExistantValue
     )
 ```
 
@@ -1069,7 +1069,7 @@ Issues are handled differently depending on their severity:
 
 <a href="https://newapi.getpop.org/api/graphql/?query=posts.id%5Bbook%5D(key:value)">View query results #4</a>
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.non-existant-field%7Cis-status(status:non-existant-value)">View query results #5</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.nonExistantField%7CisStatus(status:nonExistantValue)">View query results #5</a>
 
 ### Type casting/validation
 
