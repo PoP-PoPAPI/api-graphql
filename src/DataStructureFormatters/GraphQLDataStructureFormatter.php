@@ -135,15 +135,20 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         foreach ($entries as $dbKey => $id_items) {
             foreach ($id_items as $id => $items) {
                 foreach ($items as $item) {
-                    $ret[] = [
-                        'message' => $item[Tokens::MESSAGE],
-                        'extensions' => [
+                    $entry = [];
+                    if ($message = $item[Tokens::MESSAGE]) {
+                        $entry['message'] = $message;
+                    }
+                    $entry['extensions'] = array_merge(
+                        [
                             'type' => 'dataObject',
                             'entityDBKey' => $dbKey,
                             'id' => $id,
                             'path' => $item[Tokens::PATH],
                         ],
-                    ];
+                        $item[Tokens::EXTENSIONS] ?? []
+                    );
+                    $ret[] = $entry;
                 }
             }
         }
@@ -155,14 +160,19 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         $ret = [];
         foreach ($entries as $dbKey => $items) {
             foreach ($items as $item) {
-                $ret[] = [
-                    'message' => $item[Tokens::MESSAGE],
-                    'extensions' => [
+                $entry = [];
+                if ($message = $item[Tokens::MESSAGE]) {
+                    $entry['message'] = $message;
+                }
+                $entry['extensions'] = array_merge(
+                    [
                         'type' => 'schema',
                         'entityDBKey' => $dbKey,
                         'path' => $item[Tokens::PATH],
                     ],
-                ];
+                    $item[Tokens::EXTENSIONS] ?? []
+                );
+                $ret[] = $entry;
             }
         }
         return $ret;
