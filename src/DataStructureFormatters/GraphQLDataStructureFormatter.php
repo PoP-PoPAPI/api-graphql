@@ -20,7 +20,7 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         $ret = [];
 
         // Add errors
-        $errors = $warnings = $deprecations = [];
+        $errors = $warnings = $deprecations = $notices = $traces = [];
         if ($data['dbErrors']) {
             $errors = $this->reformatDBEntries($data['dbErrors']);
         }
@@ -64,6 +64,34 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
             $ret['extensions']['warnings'] = $warnings;
         }
 
+        // Add notices
+        if ($data['dbNotices']) {
+            $notices = $this->reformatDBEntries($data['dbNotices']);
+        }
+        if ($data['schemaNotices']) {
+            $notices = array_merge(
+                $notices,
+                $this->reformatSchemaEntries($data['schemaNotices'])
+            );
+        }
+        if ($notices) {
+            $ret['extensions']['notices'] = $notices;
+        }
+
+        // Add traces
+        if ($data['dbTraces']) {
+            $traces = $this->reformatDBEntries($data['dbTraces']);
+        }
+        if ($data['schemaTraces']) {
+            $traces = array_merge(
+                $traces,
+                $this->reformatSchemaEntries($data['schemaTraces'])
+            );
+        }
+        if ($traces) {
+            $ret['extensions']['traces'] = $traces;
+        }
+
         // Add deprecations
         if ($data['dbDeprecations']) {
             $deprecations = $this->reformatDBEntries($data['dbDeprecations']);
@@ -85,7 +113,8 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
 
         if ($resultData = parent::getFormattedData($data)) {
             // // GraphQL places the queried data under entries 'data' => query => results
-            // // Replicate this structure. Because we don't have a query name here, replace it with the queried URL path, which is known to the client
+            // // Replicate this structure. Because we don't have a query name here,
+            // // replace it with the queried URL path, which is known to the client
             // $path = RoutingUtils::getURLPath();
             // // If there is no path, it is the single point of entry (homepage => root)
             // if (!$path) {
