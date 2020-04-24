@@ -139,6 +139,9 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
                     if ($message = $item[Tokens::MESSAGE]) {
                         $entry['message'] = $message;
                     }
+                    if ($name = $item[Tokens::NAME]) {
+                        $entry['name'] = $name;
+                    }
                     $entry['extensions'] = array_merge(
                         [
                             'type' => 'dataObject',
@@ -163,6 +166,9 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
                 $entry = [];
                 if ($message = $item[Tokens::MESSAGE]) {
                     $entry['message'] = $message;
+                }
+                if ($name = $item[Tokens::NAME]) {
+                    $entry['name'] = $name;
                 }
                 $entry['extensions'] = array_merge(
                     [
