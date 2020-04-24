@@ -129,6 +129,17 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         return $ret;
     }
 
+    /**
+     * Indicate if to add the extensions naturally available to PoP.
+     * Overridable for GraphQL
+     *
+     * @return boolean
+     */
+    protected function addNativeExtensions(): bool
+    {
+        return true;
+    }
+
     protected function reformatDBEntries($entries)
     {
         $ret = [];
@@ -142,15 +153,19 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
                     if ($name = $item[Tokens::NAME]) {
                         $entry['name'] = $name;
                     }
-                    $entry['extensions'] = array_merge(
-                        [
-                            'type' => 'dataObject',
-                            'entityDBKey' => $dbKey,
-                            'id' => $id,
-                            'path' => $item[Tokens::PATH],
-                        ],
+                    if ($extensions = array_merge(
+                        $this->addNativeExtensions() ?
+                            [
+                                'type' => 'dataObject',
+                                'entityDBKey' => $dbKey,
+                                'id' => $id,
+                                'path' => $item[Tokens::PATH],
+                            ] :
+                            [],
                         $item[Tokens::EXTENSIONS] ?? []
-                    );
+                    )) {
+                        $entry['extensions'] = $extensions;
+                    }
                     $ret[] = $entry;
                 }
             }
@@ -170,14 +185,18 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
                 if ($name = $item[Tokens::NAME]) {
                     $entry['name'] = $name;
                 }
-                $entry['extensions'] = array_merge(
-                    [
-                        'type' => 'schema',
-                        'entityDBKey' => $dbKey,
-                        'path' => $item[Tokens::PATH],
-                    ],
+                if ($extensions = array_merge(
+                    $this->addNativeExtensions() ?
+                        [
+                            'type' => 'schema',
+                            'entityDBKey' => $dbKey,
+                            'path' => $item[Tokens::PATH],
+                        ] :
+                        [],
                     $item[Tokens::EXTENSIONS] ?? []
-                );
+                )) {
+                    $entry['extensions'] = $extensions;
+                }
                 $ret[] = $entry;
             }
         }
@@ -199,11 +218,15 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
 
     protected function addExtensions(array &$entry, array $extensions): void
     {
-        $entry['extensions'] = array_merge(
-            [
-                'type' => 'query',
-            ],
+        if ($extensions = array_merge(
+            $this->addNativeExtensions() ?
+                [
+                    'type' => 'query',
+                ] :
+                [],
             $extensions
-        );
+        )) {
+            $entry['extensions'] = $extensions;
+        };
     }
 }
