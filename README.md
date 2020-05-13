@@ -358,13 +358,13 @@ The example below implements the standard GraphQL `skip` directive, however it i
 /?query=
   posts.
     title|
-    featuredimage<
-      skip(if:isNull(featuredimage()))
+    featuredImage<
+      skip(if:isNull(featuredImage()))
     >.
       src
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7Cfeaturedimage<skip(if:isNull(featuredimage()))>.src">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7Cfeaturedimage<skip(if:isNull(featuredImage()))>.src">View query results</a>
 
 This behaviour enables to modify the output of the field on a fine-grained manner. For instance, the following code satisfies the same example from the section above, using directive `include` to alternate the output of a field between several values, based on the post object having comments or not:
 
@@ -396,7 +396,7 @@ Exactly the same result from section above (`<skip(if(isNull(...)))>`) can be ac
 /?query=
   posts.
     title|
-    featuredimage?.
+    featuredImage?.
       src
 ```
 
