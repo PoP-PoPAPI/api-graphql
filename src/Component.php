@@ -15,8 +15,22 @@ use PoP\Root\Component\YAMLServicesTrait;
  */
 class Component extends AbstractComponent
 {
-    // const VERSION = '0.1.0';
     use YAMLServicesTrait, CanDisableComponentTrait;
+    // const VERSION = '0.1.0';
+
+    public static function getDependedComponentClasses(): array
+    {
+        return [
+            \PoP\APIMirrorQuery\Component::class,
+        ];
+    }
+
+    public static function getDependedMigrationPlugins(): array
+    {
+        return [
+            'migrate-api-graphql',
+        ];
+    }
 
     /**
      * Initialize services
