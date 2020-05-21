@@ -35,7 +35,7 @@ class Component extends AbstractComponent
     /**
      * Initialize services
      */
-    protected static function doInitialize()
+    protected static function doInitialize(): void
     {
         if (self::isEnabled()) {
             parent::doInitialize();
