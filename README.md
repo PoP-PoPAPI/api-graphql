@@ -45,6 +45,15 @@ RewriteRule ^api/graphql/?$ /?scheme=api&datastructure=graphql [L,P,QSA]
 </IfModule>
 ```
 -->
+
+## Usage
+
+Initialize the component:
+
+``` php
+\PoP\GraphQLAPI\Component::initialize();
+```
+
 <!--
 ## Usage
 
