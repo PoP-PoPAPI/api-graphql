@@ -11,7 +11,7 @@ class ServiceConfiguration
 {
     use PHPServiceConfigurationTrait;
 
-    protected static function configure()
+    protected static function configure(): void
     {
         ContainerBuilderUtils::injectServicesIntoService(
             'data_structure_manager',
