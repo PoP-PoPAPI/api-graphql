@@ -129,48 +129,45 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         return $ret;
     }
 
-    /**
-     * Indicate if to add the extensions naturally available to PoP.
-     * Overridable for GraphQL
-     *
-     * @return boolean
-     */
-    protected function addNativeExtensions(): bool
-    {
-        return true;
-    }
-
     protected function reformatDBEntries($entries)
     {
         $ret = [];
         foreach ($entries as $dbKey => $id_items) {
             foreach ($id_items as $id => $items) {
                 foreach ($items as $item) {
-                    $entry = [];
-                    if ($message = $item[Tokens::MESSAGE]) {
-                        $entry['message'] = $message;
-                    }
-                    if ($name = $item[Tokens::NAME]) {
-                        $entry['name'] = $name;
-                    }
-                    if ($extensions = array_merge(
-                        $this->addNativeExtensions() ?
-                            [
-                                'type' => 'dataObject',
-                                'entityDBKey' => $dbKey,
-                                'id' => $id,
-                                'path' => $item[Tokens::PATH],
-                            ] :
-                            [],
-                        $item[Tokens::EXTENSIONS] ?? []
-                    )) {
-                        $entry['extensions'] = $extensions;
-                    }
-                    $ret[] = $entry;
+                    $ret[] = $this->getDBEntry($dbKey, $id, $item);
                 }
             }
         }
         return $ret;
+    }
+
+    protected function getDBEntry(string $dbKey, $id, array $item): array
+    {
+        $entry = [];
+        if ($message = $item[Tokens::MESSAGE]) {
+            $entry['message'] = $message;
+        }
+        if ($name = $item[Tokens::NAME]) {
+            $entry['name'] = $name;
+        }
+        if ($extensions = array_merge(
+            $this->getDBEntryExtensions($dbKey, $id, $item),
+            $item[Tokens::EXTENSIONS] ?? []
+        )) {
+            $entry['extensions'] = $extensions;
+        }
+        return $entry;
+    }
+
+    protected function getDBEntryExtensions(string $dbKey, $id, array $item): array
+    {
+        return [
+            'type' => 'dataObject',
+            'entityDBKey' => $dbKey,
+            'id' => $id,
+            'path' => $item[Tokens::PATH],
+        ];
     }
 
     protected function reformatSchemaEntries($entries)
@@ -178,55 +175,66 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         $ret = [];
         foreach ($entries as $dbKey => $items) {
             foreach ($items as $item) {
-                $entry = [];
-                if ($message = $item[Tokens::MESSAGE]) {
-                    $entry['message'] = $message;
-                }
-                if ($name = $item[Tokens::NAME]) {
-                    $entry['name'] = $name;
-                }
-                if ($extensions = array_merge(
-                    $this->addNativeExtensions() ?
-                        [
-                            'type' => 'schema',
-                            'entityDBKey' => $dbKey,
-                            'path' => $item[Tokens::PATH],
-                        ] :
-                        [],
-                    $item[Tokens::EXTENSIONS] ?? []
-                )) {
-                    $entry['extensions'] = $extensions;
-                }
-                $ret[] = $entry;
+                $ret[] = $this->getSchemaEntry($dbKey, $item);
             }
         }
         return $ret;
+    }
+
+    protected function getSchemaEntry(string $dbKey, array $item): array
+    {
+        $entry = [];
+        if ($message = $item[Tokens::MESSAGE]) {
+            $entry['message'] = $message;
+        }
+        if ($name = $item[Tokens::NAME]) {
+            $entry['name'] = $name;
+        }
+        if ($extensions = array_merge(
+            $this->getSchemaEntryExtensions($dbKey, $item),
+            $item[Tokens::EXTENSIONS] ?? []
+        )) {
+            $entry['extensions'] = $extensions;
+        }
+        return $entry;
+    }
+
+    protected function getSchemaEntryExtensions(string $dbKey, array $item): array
+    {
+        return [
+            'type' => 'schema',
+            'entityDBKey' => $dbKey,
+            'path' => $item[Tokens::PATH],
+        ];
     }
 
     protected function reformatQueryEntries($entries)
     {
         $ret = [];
         foreach ($entries as $message => $extensions) {
-            $entry = [
-                'message' => $message,
-            ];
-            $this->addExtensions($entry, $extensions);
-            $ret[] = $entry;
+            $ret[] = $this->getQueryEntry($message, $extensions);
         }
         return $ret;
     }
 
-    protected function addExtensions(array &$entry, array $extensions): void
+    protected function getQueryEntry(string $message, array $extensions): array
     {
+        $entry = [
+            'message' => $message,
+        ];
         if ($extensions = array_merge(
-            $this->addNativeExtensions() ?
-                [
-                    'type' => 'query',
-                ] :
-                [],
+            $this->getQueryEntryExtensions(),
             $extensions
         )) {
             $entry['extensions'] = $extensions;
         };
+        return $entry;
+    }
+
+    protected function getQueryEntryExtensions(): array
+    {
+        return [
+            'type' => 'query',
+        ];
     }
 }
