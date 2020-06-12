@@ -343,7 +343,7 @@ query=
       hasComments(), 
       sprintf(
         "This post has %s comment(s) and title '%s'", [
-          commentsCount(),
+          commentCount(),
           title()
         ]
       ), 
@@ -386,7 +386,7 @@ query=
   posts.
     sprintf(
       "This post has %s comment(s) and title '%s'", [
-        commentsCount(),
+        commentCount(),
         title()
       ]
     )@postDesc<include(if:hasComments())>|
@@ -397,7 +397,7 @@ query=
     )@postDesc<include(if:not(hasComments()))>
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?format=Y-m-d&query=posts.sprintf(%22This%20post%20has%20%s%20comment(s)%20and%20title%20%27%s%27%22,%20[commentsCount(),title()])@postDesc%3Cinclude(if:hasComments())%3E|sprintf(%22This%20post%20was%20created%20on%20%s%20and%20has%20no%20comments%22,%20[date(format:%20if(not(empty($format)),%20$format,%20d/m/Y))])@postDesc%3Cinclude(if:not(hasComments()))%3E">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?format=Y-m-d&query=posts.sprintf(%22This%20post%20has%20%s%20comment(s)%20and%20title%20%27%s%27%22,%20[commentCount(),title()])@postDesc%3Cinclude(if:hasComments())%3E|sprintf(%22This%20post%20was%20created%20on%20%s%20and%20has%20no%20comments%22,%20[date(format:%20if(not(empty($format)),%20$format,%20d/m/Y))])@postDesc%3Cinclude(if:not(hasComments()))%3E">View query results</a>
 
 ### Skip output if null
 
