@@ -375,7 +375,7 @@ The example below implements the standard GraphQL `skip` directive, however it i
       src
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7Cfeaturedimage<skip(if:isNull(featuredImage()))>.src">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7CfeaturedImage<skip(if:isNull(featuredImage()))>.src">View query results</a>
 
 This behaviour enables to modify the output of the field on a fine-grained manner. For instance, the following code satisfies the same example from the section above, using directive `include` to alternate the output of a field between several values, based on the post object having comments or not:
 
@@ -411,7 +411,7 @@ Exactly the same result from section above (`<skip(if(isNull(...)))>`) can be ac
       src
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7Cfeaturedimage?.src">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.title%7CfeaturedImage?.src">View query results</a>
 
 ### Composable directives
 
