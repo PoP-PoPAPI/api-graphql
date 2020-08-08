@@ -28,7 +28,7 @@ class Component extends AbstractComponent
     public static function getDependedMigrationPlugins(): array
     {
         return [
-            'migrate-api-graphql',
+            'getpop/migrate-api-graphql',
         ];
     }
 
