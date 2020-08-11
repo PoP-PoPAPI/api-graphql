@@ -775,30 +775,30 @@ The example below defines and accesses a list of all services required by the ap
     weather: "https://api.weather.gov/zones/forecast/MOZ028/forecast",
     photos: "https://picsum.photos/v2/list"
   ])@meshServices|
-  getAsyncJSON(getSelfProp(%self%, meshServices))@meshServiceData|
+  getAsyncJSON(getDynamicVariableProp(%self%, meshServices))@meshServiceData|
   echo([
     weatherForecast: extract(
-      getSelfProp(%self%, meshServiceData),
+      getDynamicVariableProp(%self%, meshServiceData),
       weather.properties.periods
     ),
     photoGalleryURLs: extract(
-      getSelfProp(%self%, meshServiceData),
+      getDynamicVariableProp(%self%, meshServiceData),
       photos.url
     ),
     githubMeta: echo([
       description: extract(
-        getSelfProp(%self%, meshServiceData),
+        getDynamicVariableProp(%self%, meshServiceData),
         github.description
       ),
       starCount: extract(
-        getSelfProp(%self%, meshServiceData),
+        getDynamicVariableProp(%self%, meshServiceData),
         github.stargazers_count
       )
     ])
   ])@contentMesh
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?query=echo(%5Bgithub:%22https://api.github.com/repos/leoloso/PoP%22,weather:%22https://api.weather.gov/zones/forecast/MOZ028/forecast%22,photos:%22https://picsum.photos/v2/list%22%5D)@meshServices%7CgetAsyncJSON(getSelfProp(%self%,meshServices))@meshServiceData%7Cecho(%5BweatherForecast:extract(getSelfProp(%self%,meshServiceData),weather.properties.periods),photoGalleryURLs:extract(getSelfProp(%self%,meshServiceData),photos.url),githubMeta:echo(%5Bdescription:extract(getSelfProp(%self%,meshServiceData),github.description),starCount:extract(getSelfProp(%self%,meshServiceData),github.stargazers_count)%5D)%5D)@contentMesh">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?query=echo(%5Bgithub:%22https://api.github.com/repos/leoloso/PoP%22,weather:%22https://api.weather.gov/zones/forecast/MOZ028/forecast%22,photos:%22https://picsum.photos/v2/list%22%5D)@meshServices%7CgetAsyncJSON(getDynamicVariableProp(%self%,meshServices))@meshServiceData%7Cecho(%5BweatherForecast:extract(getDynamicVariableProp(%self%,meshServiceData),weather.properties.periods),photoGalleryURLs:extract(getDynamicVariableProp(%self%,meshServiceData),photos.url),githubMeta:echo(%5Bdescription:extract(getDynamicVariableProp(%self%,meshServiceData),github.description),starCount:extract(getDynamicVariableProp(%self%,meshServiceData),github.stargazers_count)%5D)%5D)@contentMesh">View query results</a>
 
 ### One-graph ready
 
@@ -1179,12 +1179,12 @@ query=
   getJSON("https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions")@userList|
   arrayUnique(
     extract(
-      getSelfProp(%self%, userList),
+      getDynamicVariableProp(%self%, userList),
       lang
     )
   )@userLangs|
   extract(
-    getSelfProp(%self%, userList),
+    getDynamicVariableProp(%self%, userList),
     email
   )@userEmails|
   arrayFill(
@@ -1192,12 +1192,12 @@ query=
       sprintf(
         "https://newapi.getpop.org/users/api/rest/?query=name|email%26emails[]=%s",
         [arrayJoin(
-          getSelfProp(%self%, userEmails),
+          getDynamicVariableProp(%self%, userEmails),
           "%26emails[]="
         )]
       )
     ),
-    getSelfProp(%self%, userList),
+    getDynamicVariableProp(%self%, userList),
     email
   )@userData,
   self.
@@ -1208,17 +1208,17 @@ query=
       )
     >|
     self.
-      getSelfProp(%self%, postContent)@postContent<
+      getDynamicVariableProp(%self%, postContent)@postContent<
         translate(
           from: en,
           to: arrayDiff([
-            getSelfProp(%self%, userLangs),
+            getDynamicVariableProp(%self%, userLangs),
             [en]
           ])
         ),
         renameProperty(postContent-en)
       >|
-      getSelfProp(%self%, userData)@userPostData<
+      getDynamicVariableProp(%self%, userData)@userPostData<
         forEach<
           applyFunction(
             function: arrayAddItem(
@@ -1228,7 +1228,7 @@ query=
             addArguments: [
               key: postContent,
               array: %value%,
-              value: getSelfProp(
+              value: getDynamicVariableProp(
                 %self%,
                 sprintf(
                   postContent-%s,
@@ -1249,7 +1249,7 @@ query=
                 string: "<p>Hi %s, we published this post on %s, enjoy!</p>",
                 values: [
                   extract(%value%, name),
-                  getSelfProp(%self%, postDate)
+                  getDynamicVariableProp(%self%, postDate)
                 ]
               )
             ]
@@ -1257,7 +1257,7 @@ query=
         >
       >|
       self.
-        getSelfProp(%self%, userPostData)@translatedUserPostProps<
+        getDynamicVariableProp(%self%, userPostData)@translatedUserPostProps<
           forEach(
             if: not(
               equals(
@@ -1282,7 +1282,7 @@ query=
           >
         >|
         self.
-          getSelfProp(%self%,translatedUserPostProps)@emails<
+          getDynamicVariableProp(%self%,translatedUserPostProps)@emails<
             forEach<
               applyFunction(
                 function: arrayAddItem(
@@ -1325,7 +1325,7 @@ query=
           >
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?postId=1&query=post(%24postId)@post.content%7Cdate(d/m/Y)@date,getJSON(%22https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions%22)@userList%7CarrayUnique(extract(getSelfProp(%self%,%20userList),lang))@userLangs%7Cextract(getSelfProp(%self%,%20userList),email)@userEmails%7CarrayFill(getJSON(sprintf(%22https://newapi.getpop.org/users/api/rest/?query=name%7Cemail%26emails%5B%5D=%s%22,%5BarrayJoin(getSelfProp(%self%,%20userEmails),%22%26emails%5B%5D=%22)%5D)),getSelfProp(%self%,%20userList),email)@userData,self.post(%24postId)@post%3CcopyRelationalResults(%5Bcontent,%20date%5D,%5BpostContent,%20postDate%5D)%3E%7Cself.getSelfProp(%self%,%20postContent)@postContent%3Ctranslate(from:%20en,to:%20arrayDiff(%5BgetSelfProp(%self%,%20userLangs),%5Ben%5D%5D)),renameProperty(postContent-en)%3E%7CgetSelfProp(%self%,%20userData)@userPostData%3CforEach%3CapplyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%22%22),addArguments:%20%5Bkey:%20postContent,array:%20%value%,value:%20getSelfProp(%self%,sprintf(postContent-%s,%5Bextract(%value%,%20lang)%5D))%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%22%22),addArguments:%20%5Bkey:%20header,array:%20%value%,value:%20sprintf(string:%20%22%3Cp%3EHi%20%s,%20we%20published%20this%20post%20on%20%s,%20enjoy!%3C/p%3E%22,values:%20%5Bextract(%value%,%20name),getSelfProp(%self%,%20postDate)%5D)%5D)%3E%3E%7Cself.getSelfProp(%self%,%20userPostData)@translatedUserPostProps%3CforEach(if:%20not(equals(extract(%value%,%20lang),en)))%3CadvancePointerInArray(path:%20header,appendExpressions:%20%5BtoLang:%20extract(%value%,%20lang)%5D)%3Ctranslate(from:%20en,to:%20%toLang%,oneLanguagePerField:%20true,override:%20true)%3E%3E%3E%7Cself.getSelfProp(%self%,translatedUserPostProps)@emails%3CforEach%3CapplyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20content,array:%20%value%,value:%20concat(%5Bextract(%value%,%20header),extract(%value%,%20postContent)%5D)%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20to,array:%20%value%,value:%20extract(%value%,%20email)%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20subject,array:%20%value%,value:%20%22PoP%20API%20example%20:)%22%5D),sendByEmail%3E%3E">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?postId=1&query=post(%24postId)@post.content%7Cdate(d/m/Y)@date,getJSON(%22https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions%22)@userList%7CarrayUnique(extract(getDynamicVariableProp(%self%,%20userList),lang))@userLangs%7Cextract(getDynamicVariableProp(%self%,%20userList),email)@userEmails%7CarrayFill(getJSON(sprintf(%22https://newapi.getpop.org/users/api/rest/?query=name%7Cemail%26emails%5B%5D=%s%22,%5BarrayJoin(getDynamicVariableProp(%self%,%20userEmails),%22%26emails%5B%5D=%22)%5D)),getDynamicVariableProp(%self%,%20userList),email)@userData,self.post(%24postId)@post%3CcopyRelationalResults(%5Bcontent,%20date%5D,%5BpostContent,%20postDate%5D)%3E%7Cself.getDynamicVariableProp(%self%,%20postContent)@postContent%3Ctranslate(from:%20en,to:%20arrayDiff(%5BgetDynamicVariableProp(%self%,%20userLangs),%5Ben%5D%5D)),renameProperty(postContent-en)%3E%7CgetDynamicVariableProp(%self%,%20userData)@userPostData%3CforEach%3CapplyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%22%22),addArguments:%20%5Bkey:%20postContent,array:%20%value%,value:%20getDynamicVariableProp(%self%,sprintf(postContent-%s,%5Bextract(%value%,%20lang)%5D))%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%22%22),addArguments:%20%5Bkey:%20header,array:%20%value%,value:%20sprintf(string:%20%22%3Cp%3EHi%20%s,%20we%20published%20this%20post%20on%20%s,%20enjoy!%3C/p%3E%22,values:%20%5Bextract(%value%,%20name),getDynamicVariableProp(%self%,%20postDate)%5D)%5D)%3E%3E%7Cself.getDynamicVariableProp(%self%,%20userPostData)@translatedUserPostProps%3CforEach(if:%20not(equals(extract(%value%,%20lang),en)))%3CadvancePointerInArray(path:%20header,appendExpressions:%20%5BtoLang:%20extract(%value%,%20lang)%5D)%3Ctranslate(from:%20en,to:%20%toLang%,oneLanguagePerField:%20true,override:%20true)%3E%3E%3E%7Cself.getDynamicVariableProp(%self%,translatedUserPostProps)@emails%3CforEach%3CapplyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20content,array:%20%value%,value:%20concat(%5Bextract(%value%,%20header),extract(%value%,%20postContent)%5D)%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20to,array:%20%value%,value:%20extract(%value%,%20email)%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20subject,array:%20%value%,value:%20%22PoP%20API%20example%20:)%22%5D),sendByEmail%3E%3E">View query results</a>
 
 **Step-by-step description of the solution:**
 
