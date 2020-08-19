@@ -1199,133 +1199,133 @@ query=
     ),
     getSelfProp(%self%, userList),
     email
-  )@userData,
-  self.
-    post($postId)@post<
-      copyRelationalResults(
-        [content, date],
-        [postContent, postDate]
-      )
-    >|
-    self.
-      getSelfProp(%self%, postContent)@postContent<
-        translate(
-          from: en,
-          to: arrayDiff([
-            getSelfProp(%self%, userLangs),
-            [en]
-          ])
+  )@userData;
+
+  post($postId)@post<
+    copyRelationalResults(
+      [content, date],
+      [postContent, postDate]
+    )
+  >;
+
+  getSelfProp(%self%, postContent)@postContent<
+    translate(
+      from: en,
+      to: arrayDiff([
+        getSelfProp(%self%, userLangs),
+        [en]
+      ])
+    ),
+    renameProperty(postContent-en)
+  >|
+  getSelfProp(%self%, userData)@userPostData<
+    forEach<
+      applyFunction(
+        function: arrayAddItem(
+          array: [],
+          value: ""
         ),
-        renameProperty(postContent-en)
-      >|
-      getSelfProp(%self%, userData)@userPostData<
-        forEach<
-          applyFunction(
-            function: arrayAddItem(
-              array: [],
-              value: ""
-            ),
-            addArguments: [
-              key: postContent,
-              array: %value%,
-              value: getSelfProp(
-                %self%,
-                sprintf(
-                  postContent-%s,
-                  [extract(%value%, lang)]
-                )
-              )
-            ]
-          ),
-          applyFunction(
-            function: arrayAddItem(
-              array: [],
-              value: ""
-            ),
-            addArguments: [
-              key: header,
-              array: %value%,
-              value: sprintf(
-                string: "<p>Hi %s, we published this post on %s, enjoy!</p>",
-                values: [
-                  extract(%value%, name),
-                  getSelfProp(%self%, postDate)
-                ]
-              )
+        addArguments: [
+          key: postContent,
+          array: %value%,
+          value: getSelfProp(
+            %self%,
+            sprintf(
+              postContent-%s,
+              [extract(%value%, lang)]
+            )
+          )
+        ]
+      ),
+      applyFunction(
+        function: arrayAddItem(
+          array: [],
+          value: ""
+        ),
+        addArguments: [
+          key: header,
+          array: %value%,
+          value: sprintf(
+            string: "<p>Hi %s, we published this post on %s, enjoy!</p>",
+            values: [
+              extract(%value%, name),
+              getSelfProp(%self%, postDate)
             ]
           )
-        >
-      >|
-      self.
-        getSelfProp(%self%, userPostData)@translatedUserPostProps<
-          forEach(
-            if: not(
-              equals(
-                extract(%value%, lang),
-                en
-              )
-            )
-          )<
-            advancePointerInArray(
-              path: header,
-              appendExpressions: [
-                toLang: extract(%value%, lang)
-              ]
-            )<
-              translate(
-                from: en,
-                to: %toLang%,
-                oneLanguagePerField: true,
-                override: true
-              )
-            >
-          >
-        >|
-        self.
-          getSelfProp(%self%,translatedUserPostProps)@emails<
-            forEach<
-              applyFunction(
-                function: arrayAddItem(
-                  array: [],
-                  value: []
-                ),
-                addArguments: [
-                  key: content,
-                  array: %value%,
-                  value: concat([
-                    extract(%value%, header),
-                    extract(%value%, postContent)
-                  ])
-                ]
-              ),
-              applyFunction(
-                function: arrayAddItem(
-                  array: [],
-                  value: []
-                ),
-                addArguments: [
-                  key: to,
-                  array: %value%,
-                  value: extract(%value%, email)
-                ]
-              ),
-              applyFunction(
-                function: arrayAddItem(
-                  array: [],
-                  value: []
-                ),
-                addArguments: [
-                  key: subject,
-                  array: %value%,
-                  value: "PoP API example :)"
-                ]
-              ),
-              sendByEmail
-            >
-          >
+        ]
+      )
+    >
+  >;
+
+  getSelfProp(%self%, userPostData)@translatedUserPostProps<
+    forEach(
+      if: not(
+        equals(
+          extract(%value%, lang),
+          en
+        )
+      )
+    )<
+      advancePointerInArray(
+        path: header,
+        appendExpressions: [
+          toLang: extract(%value%, lang)
+        ]
+      )<
+        translate(
+          from: en,
+          to: %toLang%,
+          oneLanguagePerField: true,
+          override: true
+        )
+      >
+    >
+  >;
+
+  getSelfProp(%self%,translatedUserPostProps)@emails<
+    forEach<
+      applyFunction(
+        function: arrayAddItem(
+          array: [],
+          value: []
+        ),
+        addArguments: [
+          key: content,
+          array: %value%,
+          value: concat([
+            extract(%value%, header),
+            extract(%value%, postContent)
+          ])
+        ]
+      ),
+      applyFunction(
+        function: arrayAddItem(
+          array: [],
+          value: []
+        ),
+        addArguments: [
+          key: to,
+          array: %value%,
+          value: extract(%value%, email)
+        ]
+      ),
+      applyFunction(
+        function: arrayAddItem(
+          array: [],
+          value: []
+        ),
+        addArguments: [
+          key: subject,
+          array: %value%,
+          value: "PoP API example :)"
+        ]
+      ),
+      sendByEmail
+    >
+  >
 ```
 
-<a href="https://newapi.getpop.org/api/graphql/?postId=1&query=post(%24postId)@post.content%7Cdate(d/m/Y)@date,getJSON(%22https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions%22)@userList%7CarrayUnique(extract(getSelfProp(%self%,%20userList),lang))@userLangs%7Cextract(getSelfProp(%self%,%20userList),email)@userEmails%7CarrayFill(getJSON(sprintf(%22https://newapi.getpop.org/users/api/rest/?query=name%7Cemail%26emails%5B%5D=%s%22,%5BarrayJoin(getSelfProp(%self%,%20userEmails),%22%26emails%5B%5D=%22)%5D)),getSelfProp(%self%,%20userList),email)@userData,self.post(%24postId)@post%3CcopyRelationalResults(%5Bcontent,%20date%5D,%5BpostContent,%20postDate%5D)%3E%7Cself.getSelfProp(%self%,%20postContent)@postContent%3Ctranslate(from:%20en,to:%20arrayDiff(%5BgetSelfProp(%self%,%20userLangs),%5Ben%5D%5D)),renameProperty(postContent-en)%3E%7CgetSelfProp(%self%,%20userData)@userPostData%3CforEach%3CapplyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%22%22),addArguments:%20%5Bkey:%20postContent,array:%20%value%,value:%20getSelfProp(%self%,sprintf(postContent-%s,%5Bextract(%value%,%20lang)%5D))%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%22%22),addArguments:%20%5Bkey:%20header,array:%20%value%,value:%20sprintf(string:%20%22%3Cp%3EHi%20%s,%20we%20published%20this%20post%20on%20%s,%20enjoy!%3C/p%3E%22,values:%20%5Bextract(%value%,%20name),getSelfProp(%self%,%20postDate)%5D)%5D)%3E%3E%7Cself.getSelfProp(%self%,%20userPostData)@translatedUserPostProps%3CforEach(if:%20not(equals(extract(%value%,%20lang),en)))%3CadvancePointerInArray(path:%20header,appendExpressions:%20%5BtoLang:%20extract(%value%,%20lang)%5D)%3Ctranslate(from:%20en,to:%20%toLang%,oneLanguagePerField:%20true,override:%20true)%3E%3E%3E%7Cself.getSelfProp(%self%,translatedUserPostProps)@emails%3CforEach%3CapplyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20content,array:%20%value%,value:%20concat(%5Bextract(%value%,%20header),extract(%value%,%20postContent)%5D)%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20to,array:%20%value%,value:%20extract(%value%,%20email)%5D),applyFunction(function:%20arrayAddItem(array:%20%5B%5D,value:%20%5B%5D),addArguments:%20%5Bkey:%20subject,array:%20%value%,value:%20%22PoP%20API%20example%20:)%22%5D),sendByEmail%3E%3E">View query results</a>
+<a href="https://newapi.getpop.org/api/graphql/?postId=1&query=post($postId)@post.content|date(d/m/Y)@date,getJSON(%22https://newapi.getpop.org/wp-json/newsletter/v1/subscriptions%22)@userList|arrayUnique(extract(getSelfProp(%self%,%20userList),lang))@userLangs|extract(getSelfProp(%self%,%20userList),email)@userEmails|arrayFill(getJSON(sprintf(%22https://newapi.getpop.org/users/api/rest/?query=name|email%26emails[]=%s%22,[arrayJoin(getSelfProp(%self%,%20userEmails),%22%26emails[]=%22)])),getSelfProp(%self%,%20userList),email)@userData;post($postId)@post%3CcopyRelationalResults([content,%20date],[postContent,%20postDate])%3E;getSelfProp(%self%,%20postContent)@postContent%3Ctranslate(from:%20en,to:%20arrayDiff([getSelfProp(%self%,%20userLangs),[en]])),renameProperty(postContent-en)%3E|getSelfProp(%self%,%20userData)@userPostData%3CforEach%3CapplyFunction(function:%20arrayAddItem(array:%20[],value:%20%22%22),addArguments:%20[key:%20postContent,array:%20%value%,value:%20getSelfProp(%self%,sprintf(postContent-%s,[extract(%value%,%20lang)]))]),applyFunction(function:%20arrayAddItem(array:%20[],value:%20%22%22),addArguments:%20[key:%20header,array:%20%value%,value:%20sprintf(string:%20%22%3Cp%3EHi%20%s,%20we%20published%20this%20post%20on%20%s,%20enjoy!%3C/p%3E%22,values:%20[extract(%value%,%20name),getSelfProp(%self%,%20postDate)])])%3E%3E;getSelfProp(%self%,%20userPostData)@translatedUserPostProps%3CforEach(if:%20not(equals(extract(%value%,%20lang),en)))%3CadvancePointerInArray(path:%20header,appendExpressions:%20[toLang:%20extract(%value%,%20lang)])%3Ctranslate(from:%20en,to:%20%toLang%,oneLanguagePerField:%20true,override:%20true)%3E%3E%3E;getSelfProp(%self%,translatedUserPostProps)@emails%3CforEach%3CapplyFunction(function:%20arrayAddItem(array:%20[],value:%20[]),addArguments:%20[key:%20content,array:%20%value%,value:%20concat([extract(%value%,%20header),extract(%value%,%20postContent)])]),applyFunction(function:%20arrayAddItem(array:%20[],value:%20[]),addArguments:%20[key:%20to,array:%20%value%,value:%20extract(%value%,%20email)]),applyFunction(function:%20arrayAddItem(array:%20[],value:%20[]),addArguments:%20[key:%20subject,array:%20%value%,value:%20%22PoP%20API%20example%20:)%22]),sendByEmail%3E%3E">View query results</a>
 
 **Step-by-step description of the solution:**
 
