@@ -49,66 +49,67 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
          *
          * @see http://spec.graphql.org/June2018/#sec-Response-Format
          */
+        if ($this->addTopLevelExtensionsEntryToResponse()) {
+            // Add warnings
+            if ($data['dbWarnings']) {
+                $warnings = $this->reformatDBEntries($data['dbWarnings']);
+            }
+            if ($data['schemaWarnings']) {
+                $warnings = array_merge(
+                    $warnings,
+                    $this->reformatSchemaEntries($data['schemaWarnings'])
+                );
+            }
+            if ($warnings) {
+                $ret['extensions']['warnings'] = $warnings;
+            }
 
-        // Add warnings
-        if ($data['dbWarnings']) {
-            $warnings = $this->reformatDBEntries($data['dbWarnings']);
-        }
-        if ($data['schemaWarnings']) {
-            $warnings = array_merge(
-                $warnings,
-                $this->reformatSchemaEntries($data['schemaWarnings'])
-            );
-        }
-        if ($warnings) {
-            $ret['extensions']['warnings'] = $warnings;
-        }
+            // Add notices
+            if ($data['dbNotices']) {
+                $notices = $this->reformatDBEntries($data['dbNotices']);
+            }
+            if ($data['schemaNotices']) {
+                $notices = array_merge(
+                    $notices,
+                    $this->reformatSchemaEntries($data['schemaNotices'])
+                );
+            }
+            if ($notices) {
+                $ret['extensions']['notices'] = $notices;
+            }
 
-        // Add notices
-        if ($data['dbNotices']) {
-            $notices = $this->reformatDBEntries($data['dbNotices']);
-        }
-        if ($data['schemaNotices']) {
-            $notices = array_merge(
-                $notices,
-                $this->reformatSchemaEntries($data['schemaNotices'])
-            );
-        }
-        if ($notices) {
-            $ret['extensions']['notices'] = $notices;
-        }
+            // Add traces
+            if ($data['dbTraces']) {
+                $traces = $this->reformatDBEntries($data['dbTraces']);
+            }
+            if ($data['schemaTraces']) {
+                $traces = array_merge(
+                    $traces,
+                    $this->reformatSchemaEntries($data['schemaTraces'])
+                );
+            }
+            if ($traces) {
+                $ret['extensions']['traces'] = $traces;
+            }
 
-        // Add traces
-        if ($data['dbTraces']) {
-            $traces = $this->reformatDBEntries($data['dbTraces']);
-        }
-        if ($data['schemaTraces']) {
-            $traces = array_merge(
-                $traces,
-                $this->reformatSchemaEntries($data['schemaTraces'])
-            );
-        }
-        if ($traces) {
-            $ret['extensions']['traces'] = $traces;
-        }
+            // Add deprecations
+            if ($data['dbDeprecations']) {
+                $deprecations = $this->reformatDBEntries($data['dbDeprecations']);
+            }
+            if ($data['schemaDeprecations']) {
+                $deprecations = array_merge(
+                    $deprecations,
+                    $this->reformatSchemaEntries($data['schemaDeprecations'])
+                );
+            }
+            if ($deprecations) {
+                $ret['extensions']['deprecations'] = $deprecations;
+            }
 
-        // Add deprecations
-        if ($data['dbDeprecations']) {
-            $deprecations = $this->reformatDBEntries($data['dbDeprecations']);
-        }
-        if ($data['schemaDeprecations']) {
-            $deprecations = array_merge(
-                $deprecations,
-                $this->reformatSchemaEntries($data['schemaDeprecations'])
-            );
-        }
-        if ($deprecations) {
-            $ret['extensions']['deprecations'] = $deprecations;
-        }
-
-        // Logs
-        if ($data['logEntries']) {
-            $ret['extensions']['logs'] = $data['logEntries'];
+            // Logs
+            if ($data['logEntries']) {
+                $ret['extensions']['logs'] = $data['logEntries'];
+            }
         }
 
         if ($resultData = parent::getFormattedData($data)) {
@@ -142,6 +143,14 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         return $ret;
     }
 
+    /**
+     * Indicate if to add entry "extensions" as a top-level entry
+     */
+    protected function addTopLevelExtensionsEntryToResponse(): bool
+    {
+        return true;
+    }
+
     protected function getDBEntry(string $dbKey, $id, array $item): array
     {
         $entry = [];
@@ -151,11 +160,13 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         if ($name = $item[Tokens::NAME]) {
             $entry['name'] = $name;
         }
-        if ($extensions = array_merge(
-            $this->getDBEntryExtensions($dbKey, $id, $item),
-            $item[Tokens::EXTENSIONS] ?? []
-        )) {
-            $entry['extensions'] = $extensions;
+        if ($this->addTopLevelExtensionsEntryToResponse()) {
+            if ($extensions = array_merge(
+                $this->getDBEntryExtensions($dbKey, $id, $item),
+                $item[Tokens::EXTENSIONS] ?? []
+            )) {
+                $entry['extensions'] = $extensions;
+            }
         }
         return $entry;
     }
@@ -190,11 +201,13 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         if ($name = $item[Tokens::NAME]) {
             $entry['name'] = $name;
         }
-        if ($extensions = array_merge(
-            $this->getSchemaEntryExtensions($dbKey, $item),
-            $item[Tokens::EXTENSIONS] ?? []
-        )) {
-            $entry['extensions'] = $extensions;
+        if ($this->addTopLevelExtensionsEntryToResponse()) {
+            if ($extensions = array_merge(
+                $this->getSchemaEntryExtensions($dbKey, $item),
+                $item[Tokens::EXTENSIONS] ?? []
+            )) {
+                $entry['extensions'] = $extensions;
+            }
         }
         return $entry;
     }
@@ -222,12 +235,14 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         $entry = [
             'message' => $message,
         ];
-        if ($extensions = array_merge(
-            $this->getQueryEntryExtensions(),
-            $extensions
-        )) {
-            $entry['extensions'] = $extensions;
-        };
+        if ($this->addTopLevelExtensionsEntryToResponse()) {
+            if ($extensions = array_merge(
+                $this->getQueryEntryExtensions(),
+                $extensions
+            )) {
+                $entry['extensions'] = $extensions;
+            };
+        }
         return $entry;
     }
 
