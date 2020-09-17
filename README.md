@@ -1137,6 +1137,20 @@ query=
 
 <a href="https://newapi.getpop.org/api/graphql/?actions%5B%5D=show-logs&amp;postId=1&amp;query=post(%24postId).title%7Cdate(d/m/Y)">View query results</a>
 
+### Embeddable fields
+
+Syntactic sugar for composable fields: Resolve a field within an argument for another field from the same type, using syntax `{{ fieldName }}`, and also including arguments, using `{{ fieldName(fieldArgs) }}`.
+
+```less
+/?
+query=
+  posts.
+    echo(({{ commentCount }}) {{ title }} - posted on {{ date(d/m/Y) }})@title<include({{ hasComments }})>|
+    title<skip({{ hasComments }})>
+```
+
+<a href="https://newapi.getpop.org/api/graphql/?query=posts.echo(({{%20commentCount%20}})%20{{%20title%20}}%20-%20posted%20on%20{{%20date(d/m/Y)%20}})@title%3Cinclude({{%20hasComments%20}})%3E|title%3Cskip({{%20hasComments%20}})%3E">View query results</a>
+
 ## Features coming next
 
 ### Mutations
