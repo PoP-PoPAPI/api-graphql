@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace PoP\GraphQLAPI\Config;
 
-use PoP\ComponentModel\Container\ContainerBuilderUtils;
 use PoP\Root\Component\PHPServiceConfigurationTrait;
+use PoP\ComponentModel\Container\ContainerBuilderUtils;
+use PoP\ComponentModel\DataStructure\DataStructureManagerInterface;
 
 class ServiceConfiguration
 {
@@ -14,7 +15,7 @@ class ServiceConfiguration
     protected static function configure(): void
     {
         ContainerBuilderUtils::injectServicesIntoService(
-            'data_structure_manager',
+            DataStructureManagerInterface::class,
             'PoP\\GraphQLAPI\\DataStructureFormatters',
             'add'
         );
