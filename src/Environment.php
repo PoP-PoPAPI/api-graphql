@@ -8,6 +8,6 @@ class Environment
 {
     public static function disableGraphQLAPI(): bool
     {
-        return isset($_ENV['DISABLE_GRAPHQL_API']) ? strtolower($_ENV['DISABLE_GRAPHQL_API']) == "true" : false;
+        return getenv('DISABLE_GRAPHQL_API') !== false ? strtolower(getenv('DISABLE_GRAPHQL_API')) == "true" : false;
     }
 }
