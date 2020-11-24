@@ -904,11 +904,11 @@ PoP allows to have all types and interfaces in the schema be automatically names
 
 This is how the normal schema looks like [in the GraphQL Voyager](https://newapi.getpop.org/graphql-interactive/):
 
-![Interactive schema](https://raw.githubusercontent.com/getpop/api-graphql/master/assets/images/normal-interactive-schema.jpg)
+![Interactive schema](https://raw.githubusercontent.com/getpop/api-graphql/master/assets/images/normal-interactive-schema.png)
 
 This is how it looks in [its namespaced version](https://newapi.getpop.org/graphql-interactive/?use_namespace=1):
 
-![Namespaced interactive schema](https://raw.githubusercontent.com/getpop/api-graphql/master/assets/images/namespaced-interactive-schema.jpg)
+![Namespaced interactive schema](https://raw.githubusercontent.com/getpop/api-graphql/master/assets/images/namespaced-interactive-schema.png)
 
 ### Field/directive-based versioning
 
