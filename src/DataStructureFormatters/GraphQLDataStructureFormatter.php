@@ -161,10 +161,10 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
     protected function getDBEntry(string $dbKey, $id, array $item): array
     {
         $entry = [];
-        if ($message = $item[Tokens::MESSAGE]) {
+        if ($message = $item[Tokens::MESSAGE] ?? null) {
             $entry['message'] = $message;
         }
-        if ($name = $item[Tokens::NAME]) {
+        if ($name = $item[Tokens::NAME] ?? null) {
             $entry['name'] = $name;
         }
         if ($this->addTopLevelExtensionsEntryToResponse()) {
@@ -184,7 +184,7 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
             'type' => 'dataObject',
             'entityDBKey' => $dbKey,
             'id' => $id,
-            'path' => $item[Tokens::PATH],
+            'path' => $item[Tokens::PATH] ?? [],
         ];
     }
 
@@ -202,10 +202,10 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
     protected function getSchemaEntry(string $dbKey, array $item): array
     {
         $entry = [];
-        if ($message = $item[Tokens::MESSAGE]) {
+        if ($message = $item[Tokens::MESSAGE] ?? null) {
             $entry['message'] = $message;
         }
-        if ($name = $item[Tokens::NAME]) {
+        if ($name = $item[Tokens::NAME] ?? null) {
             $entry['name'] = $name;
         }
         if ($this->addTopLevelExtensionsEntryToResponse()) {
@@ -224,7 +224,7 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
         return [
             'type' => 'schema',
             'entityDBKey' => $dbKey,
-            'path' => $item[Tokens::PATH],
+            'path' => $item[Tokens::PATH] ?? [],
         ];
     }
 
