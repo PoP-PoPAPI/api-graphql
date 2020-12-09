@@ -22,16 +22,16 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
 
         // Add errors
         $errors = $warnings = $deprecations = $notices = $traces = [];
-        if ($data['dbErrors']) {
+        if ($data['dbErrors'] ?? null) {
             $errors = $this->reformatDBEntries($data['dbErrors']);
         }
-        if ($data['schemaErrors']) {
+        if ($data['schemaErrors'] ?? null) {
             $errors = array_merge(
                 $errors,
                 $this->reformatSchemaEntries($data['schemaErrors'])
             );
         }
-        if ($data['queryErrors']) {
+        if ($data['queryErrors'] ?? null) {
             $errors = array_merge(
                 $errors,
                 $this->reformatQueryEntries($data['queryErrors'])
@@ -52,16 +52,16 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
          */
         if ($this->addTopLevelExtensionsEntryToResponse()) {
             // Add warnings
-            if ($data['dbWarnings']) {
+            if ($data['dbWarnings'] ?? null) {
                 $warnings = $this->reformatDBEntries($data['dbWarnings']);
             }
-            if ($data['schemaWarnings']) {
+            if ($data['schemaWarnings'] ?? null) {
                 $warnings = array_merge(
                     $warnings,
                     $this->reformatSchemaEntries($data['schemaWarnings'])
                 );
             }
-            if ($data['queryWarnings']) {
+            if ($data['queryWarnings'] ?? null) {
                 $warnings = array_merge(
                     $warnings,
                     $this->reformatQueryEntries($data['queryWarnings'])
@@ -72,10 +72,10 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
             }
 
             // Add notices
-            if ($data['dbNotices']) {
+            if ($data['dbNotices'] ?? null) {
                 $notices = $this->reformatDBEntries($data['dbNotices']);
             }
-            if ($data['schemaNotices']) {
+            if ($data['schemaNotices'] ?? null) {
                 $notices = array_merge(
                     $notices,
                     $this->reformatSchemaEntries($data['schemaNotices'])
@@ -86,10 +86,10 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
             }
 
             // Add traces
-            if ($data['dbTraces']) {
+            if ($data['dbTraces'] ?? null) {
                 $traces = $this->reformatDBEntries($data['dbTraces']);
             }
-            if ($data['schemaTraces']) {
+            if ($data['schemaTraces'] ?? null) {
                 $traces = array_merge(
                     $traces,
                     $this->reformatSchemaEntries($data['schemaTraces'])
@@ -100,10 +100,10 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
             }
 
             // Add deprecations
-            if ($data['dbDeprecations']) {
+            if ($data['dbDeprecations'] ?? null) {
                 $deprecations = $this->reformatDBEntries($data['dbDeprecations']);
             }
-            if ($data['schemaDeprecations']) {
+            if ($data['schemaDeprecations'] ?? null) {
                 $deprecations = array_merge(
                     $deprecations,
                     $this->reformatSchemaEntries($data['schemaDeprecations'])
@@ -114,7 +114,7 @@ class GraphQLDataStructureFormatter extends MirrorQueryDataStructureFormatter
             }
 
             // Logs
-            if ($data['logEntries']) {
+            if ($data['logEntries'] ?? null) {
                 $ret['extensions']['logs'] = $data['logEntries'];
             }
         }
