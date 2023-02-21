@@ -12,7 +12,6 @@
         "getpop/root": "<0.10.0",
         "getpop/engine-wp": "<0.10.0",
         "getpop/routing": "<0.8.9",
-        "getpop/access-control": "<0.10.0",
         "getpop/definitions": "<0.10.0",
         "getpop/engine": "<0.10.0",
         "getpop/engine-wp-bootloader": "<0.10.0",
@@ -175,7 +174,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "pop-api/api-mirrorquery": "^0.10"
+        "pop-api/api-mirrorquery": "^0.11"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.8",
@@ -201,7 +200,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.10-dev"
+            "dev-master": "0.11-dev"
         }
     },
     "config": {
